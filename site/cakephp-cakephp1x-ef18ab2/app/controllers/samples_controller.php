@@ -3,6 +3,7 @@ class SamplesController extends AppController {
 
 	var $name = 'Samples';
 	var $helpers = array('Html', 'Form', 'Javascript', 'Ajax');
+    var $uses = array('Sample', 'Person');
 
 	function index() {
 		$this->Sample->recursive = 0;
@@ -28,6 +29,39 @@ class SamplesController extends AppController {
 			}
 		}
 	}
+
+    function generate() {
+		if (!empty($this->data)) {
+            $person = $this->Person->find('first', array('conditions' => array('lastname' => $this->data['Person']['lastname'])));
+            if (!count($person)) {
+				$this->Session->setFlash(__('The Sample could not be saved. Who are you?', true));
+                return;
+            }
+            $sample = $this->data['Sample'];
+            $this->data['Sample']['person_id'] = $person['Person']['id'];
+            $this->data['Sample']['sample_id'] = $sample['experiment_id'] . '.' .
+                $sample['fermenter_id'] . '.' .
+                $sample['timepoint'];
+			$this->Sample->create();
+			if ($this->Sample->save($this->data)) {
+                unset($sample['amount']);
+                $sample_w_id = $this->Sample->find('first', array('conditions' => $sample, 'order' => array('created' => 'DESC'), 'contain' => false));
+                $this->data['Sample']['sample_id'] .= '.' . $sample_w_id['Sample']['id'];
+                $this->Sample->save($this->data);
+				$this->Session->setFlash(__('The Sample has been saved', true));
+				$this->redirect(array('action' => 'thx', $this->data['Sample']['sample_id']));
+			} else {
+				$this->Session->setFlash(__('The Sample could not be saved. Please, try again.', true));
+			}
+		}
+        else { # when visiting the page try to fill in the name of the visitor
+            $this->data = $this->Person->find('first', array('conditions' => array('IP' => ip2long('127.0.0.1')), 'contain' => false));
+        }
+    }
+
+    function thx($id) {
+        $this->set('id', $id);
+    }
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
