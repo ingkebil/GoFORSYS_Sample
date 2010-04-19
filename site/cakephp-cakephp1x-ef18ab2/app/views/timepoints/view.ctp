@@ -1,36 +1,43 @@
-<div class="experiments view">
-<h2><?php  __('Experiment');?></h2>
+<div class="timepoints view">
+<h2><?php  __('Timepoint');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $experiment['Experiment']['id']; ?>
+			<?php echo $timepoint['Timepoint']['id']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Description'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Timepoint'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $experiment['Experiment']['description']; ?>
+			<?php echo $timepoint['Timepoint']['timepoint']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Name'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('When'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $experiment['Experiment']['name']; ?>
+			<?php echo $timepoint['Timepoint']['when']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fermenter'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $html->link($timepoint['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $timepoint['Fermenter']['id'])); ?>
 			&nbsp;
 		</dd>
 	</dl>
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $html->link(__('Edit Experiment', true), array('action' => 'edit', $experiment['Experiment']['id'])); ?> </li>
-		<li><?php echo $html->link(__('Delete Experiment', true), array('action' => 'delete', $experiment['Experiment']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $experiment['Experiment']['id'])); ?> </li>
-		<li><?php echo $html->link(__('List Experiments', true), array('action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Experiment', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('Edit Timepoint', true), array('action' => 'edit', $timepoint['Timepoint']['id'])); ?> </li>
+		<li><?php echo $html->link(__('Delete Timepoint', true), array('action' => 'delete', $timepoint['Timepoint']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $timepoint['Timepoint']['id'])); ?> </li>
+		<li><?php echo $html->link(__('List Timepoints', true), array('action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New Timepoint', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('List Fermenters', true), array('controller' => 'fermenters', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New Fermenter', true), array('controller' => 'fermenters', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List Samples', true), array('controller' => 'samples', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
 <div class="related">
 	<h3><?php __('Related Samples');?></h3>
-	<?php if (!empty($experiment['Sample'])):?>
+	<?php if (!empty($timepoint['Sample'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php __('Id'); ?></th>
@@ -48,7 +55,7 @@
 	</tr>
 	<?php
 		$i = 0;
-		foreach ($experiment['Sample'] as $sample):
+		foreach ($timepoint['Sample'] as $sample):
 			$class = null;
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';

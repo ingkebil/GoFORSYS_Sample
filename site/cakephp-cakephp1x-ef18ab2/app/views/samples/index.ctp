@@ -9,15 +9,16 @@ echo $paginator->counter(array(
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
+	<th><?php echo $paginator->sort('sample_id');?></th>
 	<th><?php echo $paginator->sort('fermenter_id');?></th>
-	<th><?php echo $paginator->sort('timepoint');?></th>
+	<th><?php echo $paginator->sort('timepoint_id');?></th>
 	<th><?php echo $paginator->sort('derives_from');?></th>
 	<th><?php echo $paginator->sort('amount');?></th>
 	<th><?php echo $paginator->sort('experiment_id');?></th>
 	<th><?php echo $paginator->sort('person_id');?></th>
 	<th><?php echo $paginator->sort('description');?></th>
 	<th><?php echo $paginator->sort('type');?></th>
-	<th><?php echo $paginator->sort('date');?></th>
+	<th><?php echo $paginator->sort('created');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php
@@ -33,10 +34,13 @@ foreach ($samples as $sample):
 			<?php echo $sample['Sample']['id']; ?>
 		</td>
 		<td>
-			<?php echo $html->link($sample['Fermenter']['id'], array('controller' => 'fermenters', 'action' => 'view', $sample['Fermenter']['id'])); ?>
+			<?php echo $sample['Sample']['sample_id']; ?>
 		</td>
 		<td>
-			<?php echo $sample['Sample']['timepoint']; ?>
+			<?php echo $html->link($sample['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $sample['Fermenter']['id'])); ?>
+		</td>
+		<td>
+			<?php echo $sample['Sample']['timepoint_id']; ?>
 		</td>
 		<td>
 			<?php echo $sample['Sample']['derives_from']; ?>
@@ -57,7 +61,7 @@ foreach ($samples as $sample):
 			<?php echo $sample['Sample']['type']; ?>
 		</td>
 		<td>
-			<?php echo $sample['Sample']['date']; ?>
+			<?php echo $sample['Sample']['created']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('View', true), array('action' => 'view', $sample['Sample']['id'])); ?>

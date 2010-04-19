@@ -1,6 +1,6 @@
 <?php 
 /* SVN FILE: $Id$ */
-/* FermentersController Test cases generated on: 2010-03-23 12:52:56 : 1269345176*/
+/* FermentersController Test cases generated on: 2010-04-19 10:48:52 : 1271666932*/
 App::import('Controller', 'Fermenters');
 
 class TestFermenters extends FermentersController {

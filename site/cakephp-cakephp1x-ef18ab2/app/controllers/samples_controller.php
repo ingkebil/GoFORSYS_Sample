@@ -49,7 +49,7 @@ class SamplesController extends AppController {
                 $this->data['Sample']['sample_id'] .= '.' . $sample_w_id['Sample']['id'];
                 $this->Sample->save($this->data);
 				$this->Session->setFlash(__('The Sample has been saved', true));
-				$this->redirect(array('action' => 'thx', $this->data['Sample']['sample_id']));
+				#$this->redirect(array('action' => 'thx', $this->data['Sample']['sample_id']));
 			} else {
 				$this->Session->setFlash(__('The Sample could not be saved. Please, try again.', true));
 			}

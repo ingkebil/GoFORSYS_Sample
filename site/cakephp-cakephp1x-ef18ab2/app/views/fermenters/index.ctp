@@ -10,6 +10,8 @@ echo $paginator->counter(array(
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('description');?></th>
+	<th><?php echo $paginator->sort('name');?></th>
+	<th><?php echo $paginator->sort('experiment_id');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php
@@ -26,6 +28,12 @@ foreach ($fermenters as $fermenter):
 		</td>
 		<td>
 			<?php echo $fermenter['Fermenter']['description']; ?>
+		</td>
+		<td>
+			<?php echo $fermenter['Fermenter']['name']; ?>
+		</td>
+		<td>
+			<?php echo $fermenter['Fermenter']['experiment_id']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('View', true), array('action' => 'view', $fermenter['Fermenter']['id'])); ?>
@@ -46,5 +54,7 @@ foreach ($fermenters as $fermenter):
 		<li><?php echo $html->link(__('New Fermenter', true), array('action' => 'add')); ?></li>
 		<li><?php echo $html->link(__('List Samples', true), array('controller' => 'samples', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('List Timepoints', true), array('controller' => 'timepoints', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New Timepoint', true), array('controller' => 'timepoints', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
