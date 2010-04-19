@@ -4,6 +4,7 @@
  		<legend><?php __('Add Experiment');?></legend>
 	<?php
 		echo $form->input('description');
+		echo $form->input('name');
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>

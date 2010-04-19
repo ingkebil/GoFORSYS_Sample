@@ -10,6 +10,7 @@ echo $paginator->counter(array(
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('description');?></th>
+	<th><?php echo $paginator->sort('name');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php
@@ -26,6 +27,9 @@ foreach ($experiments as $experiment):
 		</td>
 		<td>
 			<?php echo $experiment['Experiment']['description']; ?>
+		</td>
+		<td>
+			<?php echo $experiment['Experiment']['name']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('View', true), array('action' => 'view', $experiment['Experiment']['id'])); ?>

@@ -6,14 +6,19 @@
 			<?php echo $sample['Sample']['id']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fermenter'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Sample Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $html->link($sample['Fermenter']['id'], array('controller' => 'fermenters', 'action' => 'view', $sample['Fermenter']['id'])); ?>
+			<?php echo $sample['Sample']['sample_id']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Timepoint'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fermenter'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $sample['Sample']['timepoint']; ?>
+			<?php echo $html->link($sample['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $sample['Fermenter']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Timepoint Id'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $sample['Sample']['timepoint_id']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Derives From'); ?></dt>
@@ -46,9 +51,9 @@
 			<?php echo $sample['Sample']['type']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Date'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $sample['Sample']['date']; ?>
+			<?php echo $sample['Sample']['created']; ?>
 			&nbsp;
 		</dd>
 	</dl>

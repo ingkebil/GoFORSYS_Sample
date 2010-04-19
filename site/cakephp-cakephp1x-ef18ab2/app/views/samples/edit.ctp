@@ -4,15 +4,15 @@
  		<legend><?php __('Edit Sample');?></legend>
 	<?php
 		echo $form->input('id');
+		echo $form->input('sample_id');
 		echo $form->input('fermenter_id');
-		echo $form->input('timepoint');
+		echo $form->input('timepoint_id');
 		echo $form->input('derives_from');
 		echo $form->input('amount');
 		echo $form->input('experiment_id');
 		echo $form->input('person_id');
 		echo $form->input('description');
 		echo $form->input('type');
-		echo $form->input('date');
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>
