@@ -1,3 +1,7 @@
+<h2>Sample ID Generation</h2>
+
+<?php echo $html->link('Generate!', '/generate'); ?>
+
 <?php $javascript->link('timeline_2.3.0/src/webapp/api/timeline-api.js', false); ?>
 <?php echo $javascript->codeBlock('
 var tl;
@@ -26,7 +30,7 @@ window.onresize = function () {
 // addatchEvent(window, "resize", function (e) { onResize(); });
 '); ?>
 
-<h2>Fermenter Timelines</h2>
+<!--h2>Fermenter Timelines</h2>
 
-<div id="fermenter-timeline" style="height: 150px; border: 1px solid #aaa"></div>
+<div id="fermenter-timeline" style="height: 150px; border: 1px solid #aaa"></div-->
 

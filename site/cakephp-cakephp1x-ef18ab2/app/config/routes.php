@@ -32,10 +32,12 @@
  * to use (in this case, /app/views/pages/home.ctp)...
  */
 	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+	Router::connect('/backoffice', array('controller' => 'pages', 'action' => 'display', 'backoffice'));
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
     Router::connect('/generate', array('controller' => 'samples', 'action' => 'generate'));
+    Router::connect('/generate/*', array('controller' => 'samples', 'action' => 'generate'));
 ?>

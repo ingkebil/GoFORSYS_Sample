@@ -3,9 +3,11 @@ class Timepoint extends AppModel {
 
 	var $name = 'Timepoint';
 	var $validate = array(
-		'timepoint' => array('numeric'),
-		'fermenter_id' => array('numeric')
+		'name' => array('rule' => 'numeric', 'required' => true, 'message' => 'Should be numeric!'),
+		'fermenter_id' => array('numeric'),
+		'experiment_id' => array('numeric')
 	);
+    var $actsAs = array('Containable');
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
@@ -15,7 +17,14 @@ class Timepoint extends AppModel {
 			'conditions' => '',
 			'fields' => '',
             'order' => ''
-        )
+        ),
+		'Experiment' => array(
+			'className' => 'Experiment',
+			'foreignKey' => 'experiment_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		)
 	);
 
 	var $hasMany = array(
@@ -69,7 +78,7 @@ class Timepoint extends AppModel {
             $expression = sprintf("DATE_ADD(%s, INTERVAL %s %s)", $date, $expression, $unit);
 
             $current['when']      = $db->expression($expression);
-            $current['timepoint'] = ++$tp_num;
+            $current['name'] = ++$tp_num;
             $current['fermenter_id'] = $data[$this->alias]['fermenter_id'];
             $current['experiment_id'] = $data[$this->alias]['experiment_id'];
             $timepoints[] = $current;

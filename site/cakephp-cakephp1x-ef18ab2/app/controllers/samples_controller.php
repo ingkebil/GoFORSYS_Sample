@@ -3,7 +3,7 @@ class SamplesController extends AppController {
 
 	var $name = 'Samples';
 	var $helpers = array('Html', 'Form', 'Javascript', 'Ajax');
-    var $uses = array('Sample', 'Person');
+    var $uses = array('Sample', 'Person', 'Timepoint');
 
 	function index() {
 		$this->Sample->recursive = 0;
@@ -30,7 +30,7 @@ class SamplesController extends AppController {
 		}
 	}
 
-    function generate() {
+    function generate($exp_id = null) {
 		if (!empty($this->data)) {
             $person = $this->Person->find('first', array('conditions' => array('lastname' => $this->data['Person']['lastname'])));
             if (!count($person)) {
@@ -39,9 +39,7 @@ class SamplesController extends AppController {
             }
             $sample = $this->data['Sample'];
             $this->data['Sample']['person_id'] = $person['Person']['id'];
-            $this->data['Sample']['sample_id'] = $sample['experiment_id'] . '.' .
-                $sample['fermenter_id'] . '.' .
-                $sample['timepoint'];
+            $this->data['Sample']['sample_id'] = sprintf('%d_%d_%d', $sample['experiment_id'], $sample['fermenter_id'], $sample['timepoint']);
 			$this->Sample->create();
 			if ($this->Sample->save($this->data)) {
                 unset($sample['amount']);
@@ -55,7 +53,11 @@ class SamplesController extends AppController {
 			}
 		}
         else { # when visiting the page try to fill in the name of the visitor
-            $this->data = $this->Person->find('first', array('conditions' => array('IP' => ip2long('127.0.0.1')), 'contain' => false));
+            $this->data = $this->Person->find('first', array('conditions' => array('IP' => ip2long($_SERVER['REMOTE_ADDR'])), 'contain' => false));
+            $timepoints = $this->Timepoint->find('list', array('conditions' => array('Timepoint.experiment_id' => $exp_id), 'order' => array('when' => 'ASC'), 'contain' => false, 'fields' => array('Timepoint.name', 'Timepoint.when')));
+		    $fermenters = $this->Timepoint->Fermenter->find('list', array('fields' => array('Fermenter.name', 'Fermenter.name')));
+            $experiments = $this->Timepoint->Experiment->find('list', array('fields' => array('Experiment.name', 'Experiment.description')));
+		    $this->set(compact('fermenters', 'experiments', 'timepoints'));
         }
     }
 
