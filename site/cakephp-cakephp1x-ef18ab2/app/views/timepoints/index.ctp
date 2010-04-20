@@ -9,9 +9,11 @@ echo $paginator->counter(array(
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
-	<th><?php echo $paginator->sort('timepoint');?></th>
+	<th><?php echo $paginator->sort('name');?></th>
 	<th><?php echo $paginator->sort('when');?></th>
 	<th><?php echo $paginator->sort('fermenter_id');?></th>
+	<th><?php echo $paginator->sort('experiment_id');?></th>
+	<th><?php echo $paginator->sort('event');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php
@@ -27,13 +29,19 @@ foreach ($timepoints as $timepoint):
 			<?php echo $timepoint['Timepoint']['id']; ?>
 		</td>
 		<td>
-			<?php echo $timepoint['Timepoint']['timepoint']; ?>
+			<?php echo $timepoint['Timepoint']['name']; ?>
 		</td>
 		<td>
 			<?php echo $timepoint['Timepoint']['when']; ?>
 		</td>
 		<td>
 			<?php echo $html->link($timepoint['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $timepoint['Fermenter']['id'])); ?>
+		</td>
+		<td>
+			<?php echo $html->link($timepoint['Experiment']['name'], array('controller' => 'experiments', 'action' => 'view', $timepoint['Experiment']['id'])); ?>
+		</td>
+		<td>
+			<?php echo $timepoint['Timepoint']['event']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('View', true), array('action' => 'view', $timepoint['Timepoint']['id'])); ?>
@@ -52,9 +60,10 @@ foreach ($timepoints as $timepoint):
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('New Timepoint', true), array('action' => 'add')); ?></li>
-		<li><?php echo $html->link(__('New Timepoints', true), array('action' => 'create')); ?></li>
 		<li><?php echo $html->link(__('List Fermenters', true), array('controller' => 'fermenters', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Fermenter', true), array('controller' => 'fermenters', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('List Experiments', true), array('controller' => 'experiments', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New Experiment', true), array('controller' => 'experiments', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List Samples', true), array('controller' => 'samples', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
 	</ul>

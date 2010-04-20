@@ -6,6 +6,7 @@ class Experiment extends AppModel {
 		'description' => array('notempty'),
 		'name' => array('notempty')
 	);
+    var $uses = array('Timepoint');
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $hasMany = array(
@@ -37,5 +38,11 @@ class Experiment extends AppModel {
 		)
 	);
 
+
+    function findCurExperiment() {
+        App::import('model','Timepoint');
+        $timepoint = new Timepoint();
+        return $timepoint->find('first', array('conditions' => array('Timepoint.when <' => date('Y/m/d'))));
+    }
 }
 ?>

@@ -42,9 +42,9 @@
 		</div>
 		<div id="footer">
 			<?php echo $html->link(
-					$html->image('cake.power.gif', array('alt'=> __("CakePHP: the rapid development php framework", true), 'border'=>"0")),
-					'http://www.cakephp.org/',
-					array('target'=>'_blank'), null, false
+                    '&nbsp; problems? &nbsp;',
+                    'mailto:billiau@mpimp-golm.mpg.de',
+                    array('title' => 'Or call me on 8626', 'escape' => false)
 				);
 			?>
 		</div>

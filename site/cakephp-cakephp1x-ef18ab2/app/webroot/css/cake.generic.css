@@ -116,6 +116,9 @@ ul, li {
 	padding: 6px 10px;
 	text-align: right;
 }
+#footer a {
+    font-size: 10px;
+}
 
 /* Tables */
 table {
