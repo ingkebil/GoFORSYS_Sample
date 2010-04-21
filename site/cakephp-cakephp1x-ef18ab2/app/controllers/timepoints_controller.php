@@ -27,7 +27,7 @@ class TimepointsController extends AppController {
             }
 		}
 		$fermenters = $this->Timepoint->Fermenter->find('list', array('fields' => array('Fermenter.id', 'Fermenter.name')));
-        $experiments = $this->Timepoint->Experiment->find('list', array('fields' => array('Experiment.id', 'Experiment.description')));
+        $experiments = $this->Timepoint->Fermenter->Experiment->find('list', array('fields' => array('Experiment.id', 'Experiment.description')));
 		$this->set(compact('fermenters', 'experiments'));
     }
 
@@ -42,8 +42,8 @@ class TimepointsController extends AppController {
 			}
 		}
 		$fermenters = $this->Timepoint->Fermenter->find('list');
-        $experiments = $this->Timepoint->Experiment->find('list', array('fields' => array('Experiment.id', 'Experiment.description')));
-        $cur_experiment = $this->Timepoint->Experiment->findCurExperiment();
+        $experiments = $this->Timepoint->Fermenter->Experiment->find('list', array('fields' => array('Experiment.id', 'Experiment.description')));
+        $cur_experiment = $this->Timepoint->Fermenter->Experiment->findCurExperiment();
         if (empty($this->data['Timepoint']['experiment_id']) && ! empty($cur_experiment)) {
             $this->data['Timepoint']['experiment_id'] = $cur_experiment['Experiment']['id'];
         }

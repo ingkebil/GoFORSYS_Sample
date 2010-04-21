@@ -6,10 +6,23 @@ class Experiment extends AppModel {
 		'description' => array('notempty'),
 		'name' => array('rule' => 'numeric', 'required' => true, 'message' => 'Should be numeric!')
 	);
-    var $uses = array('Timepoint');
+    var $actsAs = array('containable');
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $hasMany = array(
+		'Event' => array(
+			'className' => 'Event',
+			'foreignKey' => 'experiment_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Fermenter' => array(
 			'className' => 'Fermenter',
 			'foreignKey' => 'experiment_id',
@@ -25,11 +38,26 @@ class Experiment extends AppModel {
 		)
 	);
 
+    var $hasAndBelongsToMany = array(
+        'Timepoint' => array(
+            'className' => 'Timepoint',
+            'joinTable' => 'events',
+            'foreignKey' => 'experiment_id',
+            'associationForeignKey' => 'timepoint_id',
+            'unique' => true,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+            'deleteQuery' => '',
+            'insertQuery' => ''
+        )
+    );
 
     function findCurExperiment() {
-        App::import('model','Timepoint');
-        $timepoint = new Timepoint();
-        return $timepoint->find('first', array('conditions' => array('Timepoint.when <' => date('Y/m/d'))));
+        return $this->Event->find('first', array('conditions' => array('Timepoint.when <' => date('Y/m/d H:i:s')), 'order' => array('when' => 'ASC')));
     }
 }
 ?>
