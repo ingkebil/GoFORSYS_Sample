@@ -33,7 +33,7 @@ foreach ($fermenters as $fermenter):
 			<?php echo $fermenter['Fermenter']['name']; ?>
 		</td>
 		<td>
-			<?php echo $fermenter['Fermenter']['experiment_id']; ?>
+			<?php echo $html->link($fermenter['Experiment']['name'], array('controller' => 'experiments', 'action' => 'view', $fermenter['Experiment']['id'])); ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('View', true), array('action' => 'view', $fermenter['Fermenter']['id'])); ?>
@@ -52,8 +52,8 @@ foreach ($fermenters as $fermenter):
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('New Fermenter', true), array('action' => 'add')); ?></li>
-		<li><?php echo $html->link(__('List Samples', true), array('controller' => 'samples', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('List Experiments', true), array('controller' => 'experiments', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New Experiment', true), array('controller' => 'experiments', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List Timepoints', true), array('controller' => 'timepoints', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Timepoint', true), array('controller' => 'timepoints', 'action' => 'add')); ?> </li>
 	</ul>

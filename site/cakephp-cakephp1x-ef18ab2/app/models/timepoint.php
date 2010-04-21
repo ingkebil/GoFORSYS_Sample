@@ -5,7 +5,6 @@ class Timepoint extends AppModel {
 	var $validate = array(
 		'name' => array('rule' => 'numeric', 'required' => true, 'message' => 'Should be numeric!'),
 		'fermenter_id' => array('numeric'),
-		'experiment_id' => array('numeric')
 	);
     var $actsAs = array('Containable');
 
@@ -17,13 +16,6 @@ class Timepoint extends AppModel {
 			'conditions' => '',
 			'fields' => '',
             'order' => ''
-        ),
-		'Experiment' => array(
-			'className' => 'Experiment',
-			'foreignKey' => 'experiment_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		)
 	);
 
@@ -52,9 +44,10 @@ class Timepoint extends AppModel {
      */
     function createMany($data) {
         $units = array('d' => 'DAY', 'h' => 'HOUR', 'm' => 'MINUTE', 's' => 'SECOND');
-        $db =& ConnectionManager::getDataSource($this->useDbConfig);
+        $db = $this->getDataSource();
         $tp_num = 0;
 
+        # actually reconstruct the 'when' field from all the seperate fields made up by 'date'
         $date = $db->value($this->deconstruct('when', $data[$this->alias]['date']));
 
         # we're gonna create one array for all records, so we can use a transaction
@@ -80,7 +73,6 @@ class Timepoint extends AppModel {
             $current['when']      = $db->expression($expression);
             $current['name'] = ++$tp_num;
             $current['fermenter_id'] = $data[$this->alias]['fermenter_id'];
-            $current['experiment_id'] = $data[$this->alias]['experiment_id'];
             $timepoints[] = $current;
         }
 

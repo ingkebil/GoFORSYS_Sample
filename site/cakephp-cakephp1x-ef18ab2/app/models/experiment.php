@@ -4,7 +4,7 @@ class Experiment extends AppModel {
 	var $name = 'Experiment';
 	var $validate = array(
 		'description' => array('notempty'),
-		'name' => array('notempty')
+		'name' => array('rule' => 'numeric', 'required' => true, 'message' => 'Should be numeric!')
 	);
     var $uses = array('Timepoint');
 
@@ -12,19 +12,6 @@ class Experiment extends AppModel {
 	var $hasMany = array(
 		'Fermenter' => array(
 			'className' => 'Fermenter',
-			'foreignKey' => 'experiment_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
-		'Sample' => array(
-			'className' => 'Sample',
 			'foreignKey' => 'experiment_id',
 			'dependent' => false,
 			'conditions' => '',
