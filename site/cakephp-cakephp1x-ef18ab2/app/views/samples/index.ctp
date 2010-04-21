@@ -10,11 +10,9 @@ echo $paginator->counter(array(
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('sample_id');?></th>
-	<th><?php echo $paginator->sort('fermenter_id');?></th>
 	<th><?php echo $paginator->sort('timepoint_id');?></th>
 	<th><?php echo $paginator->sort('derives_from');?></th>
 	<th><?php echo $paginator->sort('amount');?></th>
-	<th><?php echo $paginator->sort('experiment_id');?></th>
 	<th><?php echo $paginator->sort('person_id');?></th>
 	<th><?php echo $paginator->sort('description');?></th>
 	<th><?php echo $paginator->sort('type');?></th>
@@ -34,22 +32,16 @@ foreach ($samples as $sample):
 			<?php echo $sample['Sample']['id']; ?>
 		</td>
 		<td>
-			<?php echo $sample['Sample']['sample_id']; ?>
+			<?php echo $html->link($sample['Sample']['id'], array('controller' => 'samples', 'action' => 'view', $sample['Sample']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $html->link($sample['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $sample['Fermenter']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $sample['Sample']['timepoint_id']; ?>
+			<?php echo $html->link($sample['Timepoint']['name'], array('controller' => 'timepoints', 'action' => 'view', $sample['Timepoint']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $sample['Sample']['derives_from']; ?>
 		</td>
 		<td>
 			<?php echo $sample['Sample']['amount']; ?>
-		</td>
-		<td>
-			<?php echo $html->link($sample['Experiment']['id'], array('controller' => 'experiments', 'action' => 'view', $sample['Experiment']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $html->link($sample['Person']['id'], array('controller' => 'people', 'action' => 'view', $sample['Person']['id'])); ?>
@@ -80,10 +72,10 @@ foreach ($samples as $sample):
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('New Sample', true), array('action' => 'add')); ?></li>
-		<li><?php echo $html->link(__('List Fermenters', true), array('controller' => 'fermenters', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Fermenter', true), array('controller' => 'fermenters', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Experiments', true), array('controller' => 'experiments', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Experiment', true), array('controller' => 'experiments', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('List Samples', true), array('controller' => 'samples', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('List Timepoints', true), array('controller' => 'timepoints', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New Timepoint', true), array('controller' => 'timepoints', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List People', true), array('controller' => 'people', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Person', true), array('controller' => 'people', 'action' => 'add')); ?> </li>
 	</ul>

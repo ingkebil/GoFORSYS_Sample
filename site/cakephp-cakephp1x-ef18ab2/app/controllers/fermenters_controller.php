@@ -27,6 +27,8 @@ class FermentersController extends AppController {
 				$this->Session->setFlash(__('The Fermenter could not be saved. Please, try again.', true));
 			}
 		}
+		$experiments = $this->Fermenter->Experiment->find('list');
+		$this->set(compact('experiments'));
 	}
 
 	function edit($id = null) {
@@ -45,6 +47,8 @@ class FermentersController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Fermenter->read(null, $id);
 		}
+		$experiments = $this->Fermenter->Experiment->find('list');
+		$this->set(compact('experiments'));
 	}
 
 	function delete($id = null) {

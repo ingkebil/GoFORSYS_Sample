@@ -48,7 +48,7 @@ foreach ($experiments as $experiment):
 <div class="actions">
 	<ul>
 		<li><?php echo $html->link(__('New Experiment', true), array('action' => 'add')); ?></li>
-		<li><?php echo $html->link(__('List Samples', true), array('controller' => 'samples', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('List Fermenters', true), array('controller' => 'fermenters', 'action' => 'index')); ?> </li>
+		<li><?php echo $html->link(__('New Fermenter', true), array('controller' => 'fermenters', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

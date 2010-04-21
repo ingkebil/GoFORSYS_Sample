@@ -3,7 +3,7 @@ class Fermenter extends AppModel {
 
 	var $name = 'Fermenter';
 	var $validate = array(
-		'name' => array('notempty'),
+		'name' => array('rule' => 'numeric', 'required' => true, 'message' => 'Should be numeric!'),
 		'experiment_id' => array('numeric')
 	);
 
@@ -19,19 +19,6 @@ class Fermenter extends AppModel {
 	);
 
 	var $hasMany = array(
-		'Sample' => array(
-			'className' => 'Sample',
-			'foreignKey' => 'fermenter_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
 		'Timepoint' => array(
 			'className' => 'Timepoint',
 			'foreignKey' => 'fermenter_id',

@@ -21,11 +21,6 @@
 			<?php echo $html->link($timepoint['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $timepoint['Fermenter']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Experiment'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $html->link($timepoint['Experiment']['name'], array('controller' => 'experiments', 'action' => 'view', $timepoint['Experiment']['id'])); ?>
-			&nbsp;
-		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Event'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $timepoint['Timepoint']['event']; ?>
@@ -41,8 +36,6 @@
 		<li><?php echo $html->link(__('New Timepoint', true), array('action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List Fermenters', true), array('controller' => 'fermenters', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Fermenter', true), array('controller' => 'fermenters', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Experiments', true), array('controller' => 'experiments', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Experiment', true), array('controller' => 'experiments', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List Samples', true), array('controller' => 'samples', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
 	</ul>
@@ -54,11 +47,9 @@
 	<tr>
 		<th><?php __('Id'); ?></th>
 		<th><?php __('Sample Id'); ?></th>
-		<th><?php __('Fermenter Id'); ?></th>
 		<th><?php __('Timepoint Id'); ?></th>
 		<th><?php __('Derives From'); ?></th>
 		<th><?php __('Amount'); ?></th>
-		<th><?php __('Experiment Id'); ?></th>
 		<th><?php __('Person Id'); ?></th>
 		<th><?php __('Description'); ?></th>
 		<th><?php __('Type'); ?></th>
@@ -76,11 +67,9 @@
 		<tr<?php echo $class;?>>
 			<td><?php echo $sample['id'];?></td>
 			<td><?php echo $sample['sample_id'];?></td>
-			<td><?php echo $sample['fermenter_id'];?></td>
 			<td><?php echo $sample['timepoint_id'];?></td>
 			<td><?php echo $sample['derives_from'];?></td>
 			<td><?php echo $sample['amount'];?></td>
-			<td><?php echo $sample['experiment_id'];?></td>
 			<td><?php echo $sample['person_id'];?></td>
 			<td><?php echo $sample['description'];?></td>
 			<td><?php echo $sample['type'];?></td>
