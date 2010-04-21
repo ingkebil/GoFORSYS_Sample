@@ -20,6 +20,19 @@ class Timepoint extends AppModel {
 	);
 
 	var $hasMany = array(
+		'Event' => array(
+			'className' => 'Event',
+			'foreignKey' => 'timepoint_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		),
 		'Sample' => array(
 			'className' => 'Sample',
 			'foreignKey' => 'timepoint_id',

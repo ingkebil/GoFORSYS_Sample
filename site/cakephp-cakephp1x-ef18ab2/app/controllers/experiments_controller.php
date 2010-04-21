@@ -14,7 +14,7 @@ class ExperimentsController extends AppController {
 			$this->Session->setFlash(__('Invalid Experiment', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('experiment', $this->Experiment->read(null, $id));
+		$this->set('experiment', $this->Experiment->find('first', array('conditions' => array('id' => $id), 'contain' => array('Fermenter.Timepoint', 'Timepoint'))));
 	}
 
 	function add() {

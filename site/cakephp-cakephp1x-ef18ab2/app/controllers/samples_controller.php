@@ -56,7 +56,7 @@ class SamplesController extends AppController {
             $this->data = $this->Person->find('first', array('conditions' => array('IP' => ip2long($_SERVER['REMOTE_ADDR'])), 'contain' => false));
             $timepoints = $this->Timepoint->find('list', array('conditions' => array('Timepoint.experiment_id' => $exp_id), 'order' => array('when' => 'ASC'), 'contain' => false, 'fields' => array('Timepoint.name', 'Timepoint.when')));
 		    $fermenters = $this->Timepoint->Fermenter->find('list', array('fields' => array('Fermenter.name', 'Fermenter.name')));
-            $experiments = $this->Timepoint->Experiment->find('list', array('fields' => array('Experiment.name', 'Experiment.description')));
+            $experiments = $this->Timepoint->Fermenter->Experiment->find('list', array('fields' => array('Experiment.name', 'Experiment.description')));
 		    $this->set(compact('fermenters', 'experiments', 'timepoints'));
         }
     }
