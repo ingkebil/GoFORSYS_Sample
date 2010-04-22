@@ -25,7 +25,7 @@ class Fermenter extends AppModel {
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
+			'order' => array('when' => 'ASC'),
 			'limit' => '',
 			'offset' => '',
 			'exclusive' => '',

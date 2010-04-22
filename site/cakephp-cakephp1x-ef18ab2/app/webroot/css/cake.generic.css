@@ -151,8 +151,8 @@ th a:hover {
 table tr td {
 	background: #fff;
 	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 	padding: 4px;
-	text-align: center;
 	vertical-align: top;
 }
 table tr.altrow td {

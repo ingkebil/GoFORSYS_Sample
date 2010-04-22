@@ -21,11 +21,6 @@
 			<?php echo $html->link($timepoint['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $timepoint['Fermenter']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Event'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $timepoint['Timepoint']['event']; ?>
-			&nbsp;
-		</dd>
 	</dl>
 </div>
 <div class="actions">

@@ -27,8 +27,7 @@ class TimepointsController extends AppController {
             }
 		}
 		$fermenters = $this->Timepoint->Fermenter->find('list', array('fields' => array('Fermenter.id', 'Fermenter.name')));
-        $experiments = $this->Timepoint->Fermenter->Experiment->find('list', array('fields' => array('Experiment.id', 'Experiment.description')));
-		$this->set(compact('fermenters', 'experiments'));
+		$this->set(compact('fermenters'));
     }
 
 	function add() {

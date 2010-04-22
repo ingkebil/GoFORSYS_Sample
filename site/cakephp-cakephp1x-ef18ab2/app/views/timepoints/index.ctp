@@ -12,7 +12,6 @@ echo $paginator->counter(array(
 	<th><?php echo $paginator->sort('name');?></th>
 	<th><?php echo $paginator->sort('when');?></th>
 	<th><?php echo $paginator->sort('fermenter_id');?></th>
-	<th><?php echo $paginator->sort('event');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php
@@ -35,9 +34,6 @@ foreach ($timepoints as $timepoint):
 		</td>
 		<td>
 			<?php echo $html->link($timepoint['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $timepoint['Fermenter']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $timepoint['Timepoint']['event']; ?>
 		</td>
 		<td class="actions">
 			<?php echo $html->link(__('View', true), array('action' => 'view', $timepoint['Timepoint']['id'])); ?>
