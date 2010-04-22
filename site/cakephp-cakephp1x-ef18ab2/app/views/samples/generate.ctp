@@ -2,10 +2,35 @@
 <?php echo $form->create('Sample', array('action' => 'generate'));?>
 	<fieldset>
  		<legend><?php __('Add Sample');?></legend>
-	<?php
-		echo $form->input('experiment_id');
-		echo $form->input('fermenter_id');
-		echo $form->input('timepoint_id');
+        <table>
+            <tr>
+                <th>Date</th>
+                <?php $ferms = array(); ?>
+                <?php foreach ($experiments['Fermenter'] as $fermenter): ?>
+                <th><?php echo $fermenter['name']; $ferms[] = $fermenter['name']; ?></th>
+                <?php endforeach; ?>
+            </tr>
+            <?php foreach ($experiments['Timepoints'] as $date => $dates): ?>
+            <tr> 
+                <td><b><?php echo $date ?></b></td>
+                <?php foreach ($ferms as $ferm_id): ?>
+                    <td>
+                    <?php 
+                        if (array_key_exists($ferm_id, $dates)):
+                            foreach($dates[$ferm_id] as $time => $tp_id):
+                                echo $time ?> (<?php echo $tp_id['tp'] ?>) <?php echo $tp_id['diff']; ?><br />
+                            <?php endforeach; ?>
+                        <?php else: ?>
+                            &nbsp;
+                        <?php endif; ?>
+                    </td>
+                <?php endforeach; ?>
+                </tr>
+            <?php endforeach; ?>
+        </table>
+    <?php
+		echo $form->input('fermenter_id', array('type' => 'hidden'));
+		echo $form->input('timepoint_id', array('type' => 'hidden'));
 		echo $form->input('amount', array('label' => 'Amount (ml)'));
 		echo $form->input('Person.lastname');
         echo $form->input('Person.IP');

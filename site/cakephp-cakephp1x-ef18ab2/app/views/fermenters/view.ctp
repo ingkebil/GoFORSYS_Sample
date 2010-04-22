@@ -44,7 +44,6 @@
 		<th><?php __('Name'); ?></th>
 		<th><?php __('When'); ?></th>
 		<th><?php __('Fermenter Id'); ?></th>
-		<th><?php __('Event'); ?></th>
 		<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
@@ -60,7 +59,6 @@
 			<td><?php echo $timepoint['name'];?></td>
 			<td><?php echo $timepoint['when'];?></td>
 			<td><?php echo $timepoint['fermenter_id'];?></td>
-			<td><?php echo $timepoint['event'];?></td>
 			<td class="actions">
 				<?php echo $html->link(__('View', true), array('controller' => 'timepoints', 'action' => 'view', $timepoint['id'])); ?>
 				<?php echo $html->link(__('Edit', true), array('controller' => 'timepoints', 'action' => 'edit', $timepoint['id'])); ?>

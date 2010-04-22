@@ -54,11 +54,58 @@ class SamplesController extends AppController {
 		}
         else { # when visiting the page try to fill in the name of the visitor
             $this->data = $this->Person->find('first', array('conditions' => array('IP' => ip2long($_SERVER['REMOTE_ADDR'])), 'contain' => false));
-            $timepoints = $this->Timepoint->find('list', array('conditions' => array('Timepoint.experiment_id' => $exp_id), 'order' => array('when' => 'ASC'), 'contain' => false, 'fields' => array('Timepoint.name', 'Timepoint.when')));
-		    $fermenters = $this->Timepoint->Fermenter->find('list', array('fields' => array('Fermenter.name', 'Fermenter.name')));
-            $experiments = $this->Timepoint->Fermenter->Experiment->find('list', array('fields' => array('Experiment.name', 'Experiment.description')));
-		    $this->set(compact('fermenters', 'experiments', 'timepoints'));
+            if ($exp_id == null) {
+                $cur_experiment = $this->Timepoint->Fermenter->Experiment->findCurExperiment();
+                $exp_id = $cur_experiment['Experiment']['id'];
+            }
+            $experiments = $this->Timepoint->Fermenter->Experiment->find('first', array('conditions' => array('id' => $exp_id), 'contain' => array('Fermenter.Timepoint', 'Timepoint')));
+
+            # get the startingpoint of an experiment
+            $events = array();
+            if (array_key_exists('Timepoint', $experiments)) {
+                foreach ($experiments['Timepoint'] as $timepoint) {
+                    $events[ $timepoint['fermenter_id'] ] = $timepoint['when'];
+                }
+            }
+
+            $tps = array();
+            $experiments['Timepoints'] = array();
+            foreach ($experiments['Fermenter'] as $fermenter) {
+                $cur_day = null;
+                foreach($fermenter['Timepoint'] as $timepoint) {
+                    $day = date('l, d/m/Y', strtotime($timepoint['when']));
+                    if ($day != $cur_day) {
+                        $cur_day = $day;
+                        if (! array_key_exists( $cur_day, $tps)) {
+                            $tps[ $cur_day ] = array();
+                        }
+                    }
+                    if (! array_key_exists($fermenter['name'], $tps[ $cur_day ])) {
+                        $tps[ $cur_day ][ $fermenter['name'] ] = array();
+                    }
+                    $date_diff = '';
+                    if (array_key_exists($fermenter['id'], $events)) {
+                        $date_diff = $this->date_diff($timepoint['when'], $events[ $fermenter['id'] ]);
+                    }
+                    $tps[ $cur_day ][ $fermenter['name'] ][ date('H:i:s', strtotime($timepoint['when'])) ] = array('tp' => $timepoint['id'], 'diff' => $date_diff);
+                }
+                $experiments['Timepoints'] = array_merge($experiments['Timepoints'], $tps);
+            }
+		    $this->set(compact('experiments'));
         }
+    }
+
+    function date_diff($start, $end="NOW") {
+        $start_time = strtotime($start);
+        $stop_time = strtotime($end);
+
+        $diff_time = $start_time - $stop_time;
+
+        if (abs($diff_time) < 3600) {
+            return ceil($diff_time / 60) . 'm';
+        }
+
+        return ceil($diff_time / 3600) . 'h';
     }
 
     function thx($id) {

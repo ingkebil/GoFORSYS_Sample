@@ -7,7 +7,6 @@
 		echo $form->input('name');
 		echo $form->input('when');
 		echo $form->input('fermenter_id');
-		echo $form->input('event');
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>
