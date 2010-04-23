@@ -6,7 +6,7 @@ class Sample extends AppModel {
 		'sample_id' => array('notempty'),
 		'timepoint_id' => array('numeric'),
 		'derives_from' => array('numeric'),
-		'amount' => array('numeric'),
+	#	'amount' => array('numeric'),
 		'person_id' => array('numeric'),
 		'type' => array('notempty')
 	);
