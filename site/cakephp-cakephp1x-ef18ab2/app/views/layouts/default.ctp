@@ -11,19 +11,19 @@
 
 		echo $html->css('cake.generic');
 
-        echo $javascript->codeBlock('
-    function addatchEvent (el, vent, fu) {
-        if (el.addEventListener) {
-            el.addEventListener(vent, fu, false);
-        }
-        else if (el.attachEvent) {
-            el.attachEvent("on" + vent, fu);
-        }
-    }
-
-    function $(el) {
-        return document.getElementById(el);
-    }');
+#        echo $javascript->codeBlock('
+#    function addatchEvent (el, vent, fu) {
+#        if (el.addEventListener) {
+#            el.addEventListener(vent, fu, false);
+#        }
+#        else if (el.attachEvent) {
+#            el.attachEvent("on" + vent, fu);
+#        }
+#    }
+#
+#    function $(el) {
+#        return document.getElementById(el);
+#    }');
 
 		echo $scripts_for_layout;
 	?>
