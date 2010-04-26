@@ -32,31 +32,40 @@ class SamplesController extends AppController {
 
     function generate($exp_id = null) {
 		if (!empty($this->data)) {
-            #$person = $this->Person->find('first', array('conditions' => array('lastname' => $this->data['Person']['lastname'])));
-            #if (!count($person)) {
-			#	$this->Session->setFlash(__('The Sample could not be saved. Who are you?', true));
-            #    return;
-            #}
+            $person = $this->Person->find('first', array('conditions' => array('lastname' => $this->data['Person']['lastname'])));
+            if (!count($person['Person'])) {
+                $this->Person->create();
+                if (!$this->Person->save($this->data)) {
+                    $this->Session->setFlash(__('The Person could not be saved. Please try again.', true));
+                    return;
+                }
+                $person['Person']['id'] = $this->Person->id;
+            }
+
             $sample =& $this->data['Sample'];
-            #$sample['person_id'] = $person['Person']['id'];
-            $sample['sample_id'] = sprintf('%d_%d_%d', $sample['experiment_id'], $sample['fermenter_id'], $sample['timepoint']);
-			$this->Sample->create();
-			if ($this->Sample->save($this->data)) {
-                unset($sample['amount']);
-                $sample_w_id = $this->Sample->find('first', array('conditions' => $sample, 'order' => array('created' => 'DESC'), 'contain' => false));
-                $this->data['Sample']['sample_id'] .= '.' . $sample_w_id['Sample']['id'];
-                $this->Sample->save($this->data);
+            $tps = explode(',', $sample['timepoint_id']);
+            $samples = array();
+            foreach ($tps as $tp) {
+                if ($tp) {
+                    $new_sample = array(
+                        'timepoint_id' => $tp,
+                        'amount' => $sample['amount'],
+                        'person_id' => $person['Person']['id'],
+                    );
+                    $samples[] = $new_sample;
+                }
+            }
+
+			if ($this->Sample->saveAll($samples)) {
 				$this->Session->setFlash(__('The Sample has been saved', true));
 				#$this->redirect(array('action' => 'thx', $this->data['Sample']['sample_id']));
 			} else {
 				$this->Session->setFlash(__('The Sample could not be saved. Please, try again.', true));
 			}
 		}
-        else { # when visiting the page try to fill in the name of the visitor
-            $this->data = $this->Person->find('first', array('conditions' => array('IP' => ip2long($_SERVER['REMOTE_ADDR'])), 'contain' => false));
-            $experiments = $this->Experiment->findTPFermenter($exp_id);
-		    $this->set(compact('experiments'));
-        }
+        $experiments = $this->Experiment->findTPFermenter($exp_id);
+        $this->data['Sample']['experiment_id'] = $experiments['Experiment']['id'];
+		$this->set(compact('experiments'));
     }
 
     function thx($id) {
