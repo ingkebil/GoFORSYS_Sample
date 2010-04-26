@@ -158,11 +158,6 @@ table tr td {
 table tr.altrow td {
 	background: #f4f4f4;
 }
-
-table tr td span.selected {
-    background: #0FF;
-}
-
 td.actions {
 	text-align: center;
 	white-space: nowrap;

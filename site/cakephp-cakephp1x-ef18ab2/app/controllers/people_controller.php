@@ -60,5 +60,15 @@ class PeopleController extends AppController {
 		$this->redirect(array('action' => 'index'));
 	}
 
+    function listem() {
+        Configure::write('debug', 0);
+        $this->layout = 'ajax';
+
+        $who = sprintf('%%%s%%', $this->params['url']['query']);
+        $this->set('people', $this->Person->find('list', array(
+            'conditions' => array('lastname LIKE' => $who),
+            'fields' => array('id','lastname')
+        )));
+    }
 }
 ?>
