@@ -5,7 +5,7 @@ class Sample extends AppModel {
 	var $validate = array(
 		'sample_id' => array('notempty'),
 		'timepoint_id' => array('numeric'),
-		'derives_from' => array('numeric'),
+		'derives_from' => array('notempty'),
 	#	'amount' => array('numeric'),
 		'person_id' => array('numeric'),
 		'type' => array('notempty')
