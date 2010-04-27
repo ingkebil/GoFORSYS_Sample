@@ -24,8 +24,12 @@ return '';
 <div class="samples form">
 <?php if (! count($experiments['Fermenter'])): ?>
 No timepoints found! Maybe someone should <?php echo $html->link('add some', '/timepoints/create'); ?>?
-<?php else: ?>
-<?php echo $form->create('Sample', array('action' => "generate"));?>
+<?php else:
+$selected_tps = array();
+if (isset($this->data['Sample']['timepoint_id'])) {
+    $selected_tps = array_flip(explode(',', $this->data['Sample']['timepoint_id'])); # make this an associative array instead
+}
+echo $form->create('Sample', array('action' => "generate"));?>
 	<fieldset>
  		<legend><?php __('Add Sample');?></legend>
         <table>
@@ -43,8 +47,9 @@ No timepoints found! Maybe someone should <?php echo $html->link('add some', '/t
                     <td>
                     <?php if (array_key_exists($ferm_id, $dates)):
                         foreach($dates[$ferm_id] as $time => $tp):
+                            $class = array_key_exists($tp['tp'], $selected_tps) ? 'class="selected"' : '';
                             $tp_id = 'TP-' . $ferm_id . '-' . $tp['tp']; ?>
-                            <span ferm="<?php echo $ferm_id ?>" tp="<?php echo $tp['tp']; ?>" id="<?php echo $tp_id; ?>"><?php echo $time ?> <span class="tminus">(<?php echo $tp['diff']; ?>)</span></span><br />
+                            <span <?php echo $class ?> ferm="<?php echo $ferm_id ?>" tp="<?php echo $tp['tp']; ?>" id="<?php echo $tp_id; ?>"><?php echo $time ?> <span class="tminus">(<?php echo $tp['diff']; ?>)</span></span><br />
                         <?php endforeach; ?>
                     <?php else: ?>
                         &nbsp;
@@ -55,10 +60,9 @@ No timepoints found! Maybe someone should <?php echo $html->link('add some', '/t
             <?php endforeach; ?>
         </table>
     <?php
-#		echo $form->input('timepoint_id', array('type' => 'hidden'));
+		echo $form->input('timepoint_id', array('type' => 'hidden'));
 		echo $form->input('experiment_id', array('type' => 'hidden'));
-		echo $form->input('fermenter_id'); # , array('type' => 'hidden'));
-		echo $form->input('timepoint_id');
+		echo $form->input('fermenter_id', array('type' => 'hidden'));
 		echo $form->input('amount', array('between' => '(ml)'));
 		echo $form->input('Person.lastname');
 	?>
@@ -68,6 +72,7 @@ No timepoints found! Maybe someone should <?php echo $html->link('add some', '/t
 <?php endif; ?>
 
 <?php echo $javascript->codeBlock('
+    // select timepoints
     $(document).ready(function() {
         $("table tr th:not(:first)").click(function(event) {
             event.preventDefault();
@@ -84,15 +89,11 @@ No timepoints found! Maybe someone should <?php echo $html->link('add some', '/t
         });
 
         $("span[id^=TP-]").click(function () {
-            if ($(this).hasClass("selected")) {
-                $(this).removeClass("selected");
-            }
-            else {
-                $(this).addClass("selected");
-            }
+            $(this).toggleClass("selected");
         });
     });
 
+    // cookie
     $(document).ready(function () {
         $("#PersonLastname").val(getCookie("lastname")); 
         $("#PersonLastname").change(function () {
@@ -102,6 +103,7 @@ No timepoints found! Maybe someone should <?php echo $html->link('add some', '/t
         $("#PersonLastname").simpleAutoComplete("'.$html->url('/people/listem').'");
     });
 
+    // on submit
     $(document).ready(function () {
         $("#SampleGenerateForm").submit(function() {
             var tps = "";
