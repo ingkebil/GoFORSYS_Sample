@@ -37,35 +37,52 @@ class SamplesController extends AppController {
                 $this->Person->create();
                 if (!$this->Person->save($this->data)) {
                     $this->Session->setFlash(__('The Person could not be saved. Please try again.', true));
-                    return;
                 }
                 $person['Person']['id'] = $this->Person->id;
             }
 
-            $sample =& $this->data['Sample'];
-            $tps = explode(',', $sample['timepoint_id']);
-            $samples = array();
-            foreach ($tps as $tp) {
-                if ($tp) {
-                    $new_sample = array(
-                        'timepoint_id' => $tp,
-                        'amount' => $sample['amount'],
-                        'person_id' => $person['Person']['id'],
-                    );
-                    $samples[] = $new_sample;
+            if (count($person['Person'])) {
+                $sample =& $this->data['Sample'];
+                $tps = explode(',', $sample['timepoint_id']);
+                $tps = array_filter($tps, create_function('$a', 'return !empty($a);'));
+                $samples = array();
+                foreach ($tps as $tp) {
+                    if ($tp) {
+                        $new_sample = array(
+                            'timepoint_id' => $tp,
+                            'amount' => $sample['amount'],
+                            'person_id' => $person['Person']['id'],
+                        );
+                        $samples[] = $new_sample;
+                    }
+                }
+
+                if ($this->Sample->saveAll($samples)) {
+                    $ids = $this->Sample->find('all', array('conditions' => array('Sample.timepoint_id' => $tps, 'Sample.person_id' => $person['Person']['id']), 'order' => array('Sample.created' => 'DESC'), 'limit' => count($tps), 'contain' => false));
+                    if ($ids > 0) {
+                        $msg  = __('The samples have been saved', true);
+                        $msg .= '<ul>';
+                        foreach ($ids as $id) {
+                            $msg .= '<li>'.$id['Sample']['id'].'</li>';
+                        }
+                        $msg .= '</ul>';
+                    }
+                    $this->Session->setFlash($msg);
+                    #$this->redirect(array('action' => 'thx', $this->data['Sample']['sample_id']));
+                } else {
+                    $validationErrors = array();
+                    foreach ($this->Sample->validationErrors as $errors) {
+                        $validationErrors = array_merge($errors, $validationErrors);
+                    }
+                    $this->Sample->validationErrors = $validationErrors;
+                    $error = implode(' -- ', $validationErrors);
+                    $this->Session->setFlash(__('The Sample could not be saved. Please, try again.', true));
                 }
             }
-
-			if ($this->Sample->saveAll($samples)) {
-				$this->Session->setFlash(__('The Sample has been saved', true));
-				#$this->redirect(array('action' => 'thx', $this->data['Sample']['sample_id']));
-			} else {
-				$this->Session->setFlash(__('The Sample could not be saved. Please, try again.', true));
-			}
-		}
+        }
         $experiments = $this->Experiment->findTPFermenter($exp_id);
         $this->data['Sample']['experiment_id'] = $experiments['Experiment']['id'];
-		$this->set(compact('experiments'));
+        $this->set(compact('experiments'));
     }
 
     function thx($id) {

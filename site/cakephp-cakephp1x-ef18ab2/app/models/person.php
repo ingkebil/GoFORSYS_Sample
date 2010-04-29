@@ -3,7 +3,10 @@ class Person extends AppModel {
 
 	var $name = 'Person';
 	var $validate = array(
-		'lastname' => array('notempty')
+        'lastname' => array(
+            'rule' => 'notempty',
+            'message' => 'Please specify a lastname'
+        )
 	);
     var $actsAs = array('Containable');
 
