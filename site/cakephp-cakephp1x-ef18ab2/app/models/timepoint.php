@@ -3,7 +3,6 @@ class Timepoint extends AppModel {
 
 	var $name = 'Timepoint';
 	var $validate = array(
-		'name' => array('rule' => 'numeric', 'required' => true, 'message' => 'Should be numeric!'),
 		'fermenter_id' => array('numeric'),
 	);
     var $actsAs = array('Containable');
@@ -58,7 +57,6 @@ class Timepoint extends AppModel {
     function createMany($data) {
         $units = array('d' => 'DAY', 'h' => 'HOUR', 'm' => 'MINUTE', 's' => 'SECOND');
         $db = $this->getDataSource();
-        $tp_num = 0;
 
         # actually reconstruct the 'when' field from all the seperate fields made up by 'date'
         $date = $db->value($this->deconstruct('when', $data[$this->alias]['date']));
@@ -73,8 +71,8 @@ class Timepoint extends AppModel {
             $expressions = array();
             for($i = 0; $i < count($matches['num']); $i++) {
                 $expressions[] = sprintf('%s%d', $matches['sign'][$i], $matches['num'][$i]);
-                    $u = @$units[ $matches['unit'][$i] ];
-                    $unit[] = $u ? $u : 'HOUR';
+                $u = @$units[ $matches['unit'][$i] ];
+                $unit[] = $u ? $u : 'HOUR';
             }
             $expression = implode(' ', $expressions);
             if (count($expressions) > 1) {
@@ -84,7 +82,7 @@ class Timepoint extends AppModel {
             $expression = sprintf("DATE_ADD(%s, INTERVAL %s %s)", $date, $expression, $unit);
 
             $current['when']      = $db->expression($expression);
-            $current['name'] = ++$tp_num;
+            $current['name'] = 1;
             $current['fermenter_id'] = $data[$this->alias]['fermenter_id'];
             $timepoints[] = $current;
         }

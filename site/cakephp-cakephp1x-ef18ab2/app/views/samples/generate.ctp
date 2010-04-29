@@ -109,15 +109,15 @@ echo $form->create('Sample', array('action' => "generate"));?>
             var tps = "";
             var ferms = "";
             var ids = $("span[id^=TP-].selected");
-            if (ids.size() == 1) {
+            //if (ids.size() == 1) {
                 //$("fieldset").append("<fieldset><legend>Generated ID</legend></fieldset>");
-            }
-            else {
+            //}
+            //else {
                 ids.each(function(index) {
                     tps += "," + $(this).attr("tp");
                     ferms += "," + $(this).attr("ferm");
                 });
-            }
+            //}
             $("#SampleTimepointId").val(tps);
             $("#SampleFermenterId").val(ferms);
         });
