@@ -60,9 +60,9 @@ echo $form->create('Sample', array('action' => "generate"));?>
             <?php endforeach; ?>
         </table>
     <?php
-		echo $form->input('timepoint_id', array('type' => 'hidden'));
+		echo $form->input('timepoint_id' , array('type' => 'hidden'));
 		echo $form->input('experiment_id', array('type' => 'hidden'));
-		echo $form->input('fermenter_id', array('type' => 'hidden'));
+		echo $form->input('fermenter_id' , array('type' => 'hidden'));
 		echo $form->input('amount', array('between' => '(ml)'));
 		echo $form->input('Person.lastname');
 	?>
