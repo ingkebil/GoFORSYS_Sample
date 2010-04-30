@@ -32,7 +32,7 @@ if (isset($this->data['Sample']['timepoint_id'])) {
 echo $form->create('Sample', array('action' => "generate"));?>
 	<fieldset>
  		<legend><?php __('Add Sample');?></legend>
-        <table>
+        <table id="tps">
             <tr>
                 <th>Date</th>
                 <?php $ferms = array(); ?>
@@ -91,6 +91,11 @@ echo $form->create('Sample', array('action' => "generate"));?>
         $("span[id^=TP-]").click(function () {
             $(this).toggleClass("selected");
         });
+
+        $("#tps tr td span, #tps tr th:not(:first), #tps tr td:first-child").hover(
+            function () { $(this).css("cursor", "pointer"); },
+            function () { $(this).css("cursor", "auto"); }
+        );
     });
 
     // cookie
