@@ -8,7 +8,6 @@ echo $paginator->counter(array(
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
-	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('description');?></th>
 	<th><?php echo $paginator->sort('name');?></th>
 	<th class="actions"><?php __('Actions');?></th>
@@ -22,9 +21,6 @@ foreach ($experiments as $experiment):
 	}
 ?>
 	<tr<?php echo $class;?>>
-		<td>
-			<?php echo $experiment['Experiment']['id']; ?>
-		</td>
 		<td>
 			<?php echo $experiment['Experiment']['description']; ?>
 		</td>

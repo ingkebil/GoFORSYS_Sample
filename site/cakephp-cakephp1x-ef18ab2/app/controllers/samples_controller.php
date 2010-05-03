@@ -58,24 +58,16 @@ class SamplesController extends AppController {
                 }
 
                 if ($this->Sample->saveAll($samples)) {
-                    $ids = $this->Sample->find('all', array('conditions' => array('Sample.timepoint_id' => $tps, 'Sample.person_id' => $person['Person']['id']), 'order' => array('Sample.created' => 'DESC'), 'limit' => count($tps), 'contain' => false));
-                    if ($ids > 0) {
-                        $msg  = __('The samples have been saved', true);
-                        $msg .= '<ul>';
-                        foreach ($ids as $id) {
-                            $msg .= '<li>'.$id['Sample']['id'].'</li>';
-                        }
-                        $msg .= '</ul>';
-                    }
-                    $this->Session->setFlash($msg);
-                    #$this->redirect(array('action' => 'thx', $this->data['Sample']['sample_id']));
+                    $this->Session->write('tps', $tps);
+                    $this->Session->write('person_id', $person['Person']['id']);
+                    $this->Session->setFlash(__('The samples have been saved', true));
+                    $this->redirect(array('action' => 'thx'));
                 } else {
                     $validationErrors = array();
                     foreach ($this->Sample->validationErrors as $errors) {
                         $validationErrors = array_merge($errors, $validationErrors);
                     }
                     $this->Sample->validationErrors = $validationErrors;
-                    $error = implode(' -- ', $validationErrors);
                     $this->Session->setFlash(__('The Sample could not be saved. Please, try again.', true));
                 }
             }
@@ -85,8 +77,13 @@ class SamplesController extends AppController {
         $this->set(compact('experiments'));
     }
 
-    function thx($id) {
-        $this->set('id', $id);
+    function thx() {
+        $tps = $this->Session->read('tps');
+        $person_id = $this->Session->read('person_id');
+#        $this->Session->del('tps');
+#        $this->Session->del('person_id');
+        $ids = $this->Sample->find('all', array('conditions' => array('Sample.timepoint_id' => $tps, 'Sample.person_id' => $person_id), 'order' => array('Sample.created' => 'DESC'), 'limit' => count($tps), 'contain' => false));
+        $this->set(compact('ids', 'person_id'));
     }
 
 	function edit($id = null) {

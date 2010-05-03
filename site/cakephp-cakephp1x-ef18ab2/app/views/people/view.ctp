@@ -1,11 +1,13 @@
+<?php
+ $html->css('../js/dataTables-1.6/media/css/demo_page');
+ $html->css('../js/dataTables-1.6/media/css/demo_table');
+echo $html->css('datatables.css', false, false, false);
+$javascript->link('jquery-1.4.2.min', false);
+$javascript->link('dataTables-1.6/media/js/jquery.dataTables', false);
+?>
 <div class="people view">
 <h2><?php  __('Person');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $person['Person']['id']; ?>
-			&nbsp;
-		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Lastname'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $person['Person']['lastname']; ?>
@@ -26,20 +28,18 @@
 <div class="related">
 	<h3><?php __('Related Samples');?></h3>
 	<?php if (!empty($person['Sample'])):?>
-	<table cellpadding = "0" cellspacing = "0">
+	<table cellpadding = "0" cellspacing = "0"  class="display" id="example">
+    <thead>
 	<tr>
 		<th><?php __('Id'); ?></th>
-		<th><?php __('Fermenter Id'); ?></th>
 		<th><?php __('Timepoint'); ?></th>
 		<th><?php __('Derives From'); ?></th>
 		<th><?php __('Amount'); ?></th>
-		<th><?php __('Experiment Id'); ?></th>
-		<th><?php __('Person Id'); ?></th>
-		<th><?php __('Description'); ?></th>
-		<th><?php __('Type'); ?></th>
-		<th><?php __('Date'); ?></th>
+		<th><?php __('Created'); ?></th>
 		<th class="actions"><?php __('Actions');?></th>
 	</tr>
+    </thead>
+    <tbody>
 	<?php
 		$i = 0;
 		foreach ($person['Sample'] as $sample):
@@ -50,15 +50,10 @@
 		?>
 		<tr<?php echo $class;?>>
 			<td><?php echo $sample['id'];?></td>
-			<td><?php echo $sample['fermenter_id'];?></td>
-			<td><?php echo $sample['timepoint'];?></td>
+			<td><?php echo $html->link($sample['timepoint_id'], array('controller' => 'timepoints', 'action' => 'view', $sample['timepoint_id']));?></td>
 			<td><?php echo $sample['derives_from'];?></td>
 			<td><?php echo $sample['amount'];?></td>
-			<td><?php echo $sample['experiment_id'];?></td>
-			<td><?php echo $sample['person_id'];?></td>
-			<td><?php echo $sample['description'];?></td>
-			<td><?php echo $sample['type'];?></td>
-			<td><?php echo $sample['date'];?></td>
+			<td><?php echo $sample['created'];?></td>
 			<td class="actions">
 				<?php echo $html->link(__('View', true), array('controller' => 'samples', 'action' => 'view', $sample['id'])); ?>
 				<?php echo $html->link(__('Edit', true), array('controller' => 'samples', 'action' => 'edit', $sample['id'])); ?>
@@ -66,6 +61,7 @@
 			</td>
 		</tr>
 	<?php endforeach; ?>
+    </tbody>
 	</table>
 <?php endif; ?>
 
@@ -75,3 +71,13 @@
 		</ul>
 	</div>
 </div>
+
+<?php echo $javascript->codeBlock("
+$(document).ready(function () {
+    $('div.related table').dataTable( {
+        'bStateSave': true,
+        'sPaginationType': 'full_numbers'
+
+    } );
+});
+"); ?>

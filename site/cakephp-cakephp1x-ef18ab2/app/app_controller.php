@@ -36,7 +36,7 @@
  */
 class AppController extends Controller {
 
-    var $helpers = array('javascript', 'html');
+    var $helpers = array('javascript', 'html', 'tooltip');
 
 }
 ?>
