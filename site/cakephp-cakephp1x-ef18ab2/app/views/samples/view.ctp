@@ -1,14 +1,14 @@
 <div class="samples view">
 <h2><?php  __('Sample');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $sample['Sample']['id']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Sample'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Parent Sample'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $html->link($sample['Sample']['id'], array('controller' => 'samples', 'action' => 'view', $sample['Sample']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Name'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $sample['Sample']['name']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Timepoint'); ?></dt>
@@ -28,17 +28,7 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Person'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $html->link($sample['Person']['id'], array('controller' => 'people', 'action' => 'view', $sample['Person']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Description'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $sample['Sample']['description']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Type'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $sample['Sample']['type']; ?>
+			<?php echo $html->link($sample['Person']['lastname'], array('controller' => 'people', 'action' => 'view', $sample['Person']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
@@ -55,7 +45,7 @@
 		<li><?php echo $html->link(__('List Samples', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Sample', true), array('action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List Samples', true), array('controller' => 'samples', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
+		<li><?php echo $html->link(__('New Parent Sample', true), array('controller' => 'samples', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List Timepoints', true), array('controller' => 'timepoints', 'action' => 'index')); ?> </li>
 		<li><?php echo $html->link(__('New Timepoint', true), array('controller' => 'timepoints', 'action' => 'add')); ?> </li>
 		<li><?php echo $html->link(__('List People', true), array('controller' => 'people', 'action' => 'index')); ?> </li>
@@ -64,42 +54,38 @@
 </div>
 <div class="related">
 	<h3><?php __('Related Samples');?></h3>
-	<?php if (!empty($sample['Sample'])):?>
+	<?php if (!empty($sample['ChildSample'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php __('Id'); ?></th>
-		<th><?php __('Sample Id'); ?></th>
+		<th><?php __('Name'); ?></th>
 		<th><?php __('Timepoint Id'); ?></th>
 		<th><?php __('Derives From'); ?></th>
 		<th><?php __('Amount'); ?></th>
 		<th><?php __('Person Id'); ?></th>
-		<th><?php __('Description'); ?></th>
-		<th><?php __('Type'); ?></th>
 		<th><?php __('Created'); ?></th>
 		<th class="actions"><?php __('Actions');?></th>
 	</tr>
 	<?php
 		$i = 0;
-		foreach ($sample['Sample'] as $sample):
+		foreach ($sample['ChildSample'] as $childSample):
 			$class = null;
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $sample['id'];?></td>
-			<td><?php echo $sample['sample_id'];?></td>
-			<td><?php echo $sample['timepoint_id'];?></td>
-			<td><?php echo $sample['derives_from'];?></td>
-			<td><?php echo $sample['amount'];?></td>
-			<td><?php echo $sample['person_id'];?></td>
-			<td><?php echo $sample['description'];?></td>
-			<td><?php echo $sample['type'];?></td>
-			<td><?php echo $sample['created'];?></td>
+			<td><?php echo $childSample['id'];?></td>
+			<td><?php echo $childSample['name'];?></td>
+			<td><?php echo $childSample['timepoint_id'];?></td>
+			<td><?php echo $childSample['derives_from'];?></td>
+			<td><?php echo $childSample['amount'];?></td>
+			<td><?php echo $childSample['person_id'];?></td>
+			<td><?php echo $childSample['created'];?></td>
 			<td class="actions">
-				<?php echo $html->link(__('View', true), array('controller' => 'samples', 'action' => 'view', $sample['id'])); ?>
-				<?php echo $html->link(__('Edit', true), array('controller' => 'samples', 'action' => 'edit', $sample['id'])); ?>
-				<?php echo $html->link(__('Delete', true), array('controller' => 'samples', 'action' => 'delete', $sample['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $sample['id'])); ?>
+				<?php echo $html->link(__('View', true), array('controller' => 'samples', 'action' => 'view', $childSample['id'])); ?>
+				<?php echo $html->link(__('Edit', true), array('controller' => 'samples', 'action' => 'edit', $childSample['id'])); ?>
+				<?php echo $html->link(__('Delete', true), array('controller' => 'samples', 'action' => 'delete', $childSample['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $childSample['id'])); ?>
 			</td>
 		</tr>
 	<?php endforeach; ?>
@@ -108,7 +94,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $html->link(__('New Sample', true), array('controller' => 'samples', 'action' => 'add'));?> </li>
+			<li><?php echo $html->link(__('New Child Sample', true), array('controller' => 'samples', 'action' => 'add'));?> </li>
 		</ul>
 	</div>
 </div>

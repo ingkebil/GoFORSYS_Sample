@@ -1,11 +1,6 @@
 <div class="experiments view">
 <h2><?php  __('Experiment');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $experiment['Experiment']['id']; ?>
-			&nbsp;
-		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Description'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $experiment['Experiment']['description']; ?>
@@ -13,8 +8,8 @@
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Name'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $experiment['Experiment']['name']; ?>
-			&nbsp;
+            <?php echo $tooltip->lookup('experiment_name', $experiment['Experiment']['name']); ?>
+            &nbsp; 
 		</dd>
 	</dl>
 </div>
@@ -37,7 +32,6 @@
 	<?php if (!empty($experiment['Timepoint'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php __('Id'); ?></th>
 		<th><?php __('Name'); ?></th>
 		<th><?php __('When'); ?></th>
 		<th><?php __('Fermenter Id'); ?></th>
@@ -52,7 +46,6 @@
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $timepoint['id'];?></td>
 			<td><?php echo $timepoint['name'];?></td>
 			<td><?php echo $timepoint['when'];?></td>
 			<td><?php echo $timepoint['fermenter_id'];?></td>
@@ -77,7 +70,6 @@
 	<?php if (!empty($experiment['Fermenter'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php __('Id'); ?></th>
 		<th><?php __('Description'); ?></th>
 		<th><?php __('Name'); ?></th>
 		<th><?php __('Experiment Id'); ?></th>
@@ -92,7 +84,6 @@
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $fermenter['id'];?></td>
 			<td><?php echo $fermenter['description'];?></td>
 			<td><?php echo $fermenter['name'];?></td>
 			<td><?php echo $fermenter['experiment_id'];?></td>
@@ -117,7 +108,6 @@
 	<?php if (!empty($experiment['Fermenter'][0]['Timepoint'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php __('Id'); ?></th>
 		<th><?php __('Name'); ?></th>
 		<th><?php __('When'); ?></th>
 		<th><?php __('Fermenter Id'); ?></th>
@@ -133,7 +123,6 @@
                 }
             ?>
             <tr<?php echo $class;?>>
-			    <td><?php echo $timepoint['id'];?></td>
 			    <td><?php echo $timepoint['name'];?></td>
 			    <td><?php echo $timepoint['when'];?></td>
 			    <td><?php echo $timepoint['fermenter_id'];?></td>

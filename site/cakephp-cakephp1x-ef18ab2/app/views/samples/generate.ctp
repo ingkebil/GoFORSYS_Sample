@@ -31,7 +31,7 @@ if (isset($this->data['Sample']['timepoint_id'])) {
 }
 echo $form->create('Sample', array('action' => "generate"));?>
 	<fieldset>
- 		<legend><?php __('Add Sample');?></legend>
+        <legend><?php __('Get a Sample ID'); ?> <?php echo $tooltip->lookup('sample_id'); ?></legend>
         <table id="tps">
             <tr>
                 <th>Date</th>
@@ -92,7 +92,7 @@ echo $form->create('Sample', array('action' => "generate"));?>
             $(this).toggleClass("selected");
         });
 
-        $("#tps tr td span, #tps tr th:not(:first), #tps tr td:first-child").hover(
+        $("#tps span, #tps th:not(:first), #tps td:first-child").hover(
             function () { $(this).css("cursor", "pointer"); },
             function () { $(this).css("cursor", "auto"); }
         );

@@ -1,6 +1,14 @@
 <h2>Sample ID Generation</h2>
-
-<?php echo $html->link('Generate!', '/generate'); ?>
+You can ...
+<ul>
+<li><?php echo $html->link('... Generate sample IDs', '/generate'); ?></li>
+<li><?php echo $html->link('... Browse previous sample IDs', '/samples'); ?></li>
+<li><?php echo $html->link('... View a summary of the experiment data', '/experiments'); ?></li>
+</ul>
+<br />
+<ul>
+<li><?php echo $html->link('... Browse the help', 'http://gent/dokuwiki/goforsys/'); ?></li>
+</ul>
 
 <?php $javascript->link('timeline_2.3.0/src/webapp/api/timeline-api.js', false); ?>
 <?php echo $javascript->codeBlock('
