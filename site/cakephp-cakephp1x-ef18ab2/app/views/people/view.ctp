@@ -1,9 +1,9 @@
 <?php
  $html->css('../js/dataTables-1.6/media/css/demo_page');
  $html->css('../js/dataTables-1.6/media/css/demo_table');
-echo $html->css('datatables.css', false, false, false);
-$javascript->link('jquery-1.4.2.min', false);
-$javascript->link('dataTables-1.6/media/js/jquery.dataTables', false);
+echo $html->css('datatables.css', null, array('inline' => false));
+$html->script('jquery-1.4.2.min', false);
+$html->script('dataTables-1.6/media/js/jquery.dataTables', false);
 ?>
 <div class="people view">
 <h2><?php  __('Person');?></h2>
@@ -49,9 +49,9 @@ $javascript->link('dataTables-1.6/media/js/jquery.dataTables', false);
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $sample['id'];?></td>
+			<td><?php echo $html->link($sample['id'], array('controller' => 'samples', 'action' => 'view', $sample['id']));?></td>
 			<td><?php echo $html->link($sample['timepoint_id'], array('controller' => 'timepoints', 'action' => 'view', $sample['timepoint_id']));?></td>
-			<td><?php echo $sample['derives_from'];?></td>
+			<td><?php echo $html->link($sample['derives_from'], array('controller' => 'samples', 'action' => 'view', $sample['derives_from']));?></td>
 			<td><?php echo $sample['amount'];?></td>
 			<td><?php echo $sample['created'];?></td>
 			<td class="actions">
@@ -72,7 +72,7 @@ $javascript->link('dataTables-1.6/media/js/jquery.dataTables', false);
 	</div>
 </div>
 
-<?php echo $javascript->codeBlock("
+<?php echo $html->scriptBlock("
 $(document).ready(function () {
     $('div.related table').dataTable( {
         'bStateSave': true,

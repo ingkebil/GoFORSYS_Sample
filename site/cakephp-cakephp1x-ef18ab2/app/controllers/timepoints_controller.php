@@ -14,7 +14,7 @@ class TimepointsController extends AppController {
 			$this->Session->setFlash(__('Invalid Timepoint', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('timepoint', $this->Timepoint->find('first', array('conditions' => array('Timepoint.id' => $id), 'contain' => array('Fermenter.Experiment', 'Sample', 'Event'))));
+		$this->set('timepoint', $this->Timepoint->find('first', array('conditions' => array('Timepoint.id' => $id), 'contain' => array('Fermenter.Experiment', 'Event', 'Sample.Person'))));
 	}
 
     function create() {

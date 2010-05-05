@@ -81,7 +81,6 @@
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php __('Id'); ?></th>
-		<th><?php __('Timepoint Id'); ?></th>
 		<th><?php __('Derives From'); ?></th>
 		<th><?php __('Amount'); ?></th>
 		<th><?php __('Person Id'); ?></th>
@@ -97,11 +96,15 @@
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $sample['id'];?></td>
-			<td><?php echo $sample['timepoint_id'];?></td>
-			<td><?php echo $sample['derives_from'];?></td>
+			<td><?php echo $html->link($sample['id'], array('controller' => 'samples', 'action' => 'view', $sample['id']));?></td>
+            <td><?php if ($sample['derives_from'] != $sample['id']):
+                echo $html->link($sample['derives_from'], array('controller' => 'samples', 'action' => 'view', $sample['derives_from']));
+            else: ?>
+                Fermenter
+            <?php endif; ?>
+            </td>
 			<td><?php echo $sample['amount'];?></td>
-			<td><?php echo $sample['person_id'];?></td>
+			<td><?php echo $html->link($sample['Person']['lastname'], array('controller' => 'people', 'action' => 'view', $sample['Person']['id']));?></td>
 			<td><?php echo $sample['created'];?></td>
 			<td class="actions">
 				<?php echo $html->link(__('View', true), array('controller' => 'samples', 'action' => 'view', $sample['id'])); ?>

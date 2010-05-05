@@ -6,12 +6,12 @@ class TooltipHelper extends AppHelper {
     var $uniq_nr = 0;
 
     function beforeRender() {
-        $this->Javascript->link('jquery-1.4.2.min', false);
-        $this->Javascript->link('jquery.simpletip.min', false);
+        $this->Html->script('jquery-1.4.2.min', false);
+        $this->Html->script('jquery.simpletip.min', false);
     }
 
     function add($element_class, $tip) {
-        return $this->Javascript->codeBlock("
+        return $this->Html->scriptBlock("
             $(document).ready(function () {
                 $('.$element_class').simpletip({
                     content: '".addcslashes($tip, "'")."',

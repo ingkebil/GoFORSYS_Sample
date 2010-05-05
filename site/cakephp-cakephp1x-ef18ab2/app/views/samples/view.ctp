@@ -1,7 +1,7 @@
 <div class="samples view">
 <h2><?php  __('Sample');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Parent Sample'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $html->link($sample['Sample']['id'], array('controller' => 'samples', 'action' => 'view', $sample['Sample']['id'])); ?>
 			&nbsp;
@@ -16,11 +16,13 @@
 			<?php echo $html->link($sample['Timepoint']['name'], array('controller' => 'timepoints', 'action' => 'view', $sample['Timepoint']['id'])); ?>
 			&nbsp;
 		</dd>
+        <?php if ($sample['Sample']['id'] != $sample['Sample']['derives_from']): ?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Derives From'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $sample['Sample']['derives_from']; ?>
+			<?php echo $html->link($sample['Sample']['derives_from'], array('controller' => 'samples', 'action' => 'view', $sample['Sample']['derives_from'])); ?>
 			&nbsp;
 		</dd>
+        <?php endif; ?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Amount'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $sample['Sample']['amount']; ?>
@@ -59,7 +61,7 @@
 	<tr>
 		<th><?php __('Id'); ?></th>
 		<th><?php __('Name'); ?></th>
-		<th><?php __('Timepoint Id'); ?></th>
+		<th><?php __('Timepoint'); ?></th>
 		<th><?php __('Derives From'); ?></th>
 		<th><?php __('Amount'); ?></th>
 		<th><?php __('Person Id'); ?></th>
@@ -70,17 +72,18 @@
 		$i = 0;
 		foreach ($sample['ChildSample'] as $childSample):
 			$class = null;
+            #if ($childSample['id'] == $childSample['derives_from']) continue;
 			if ($i++ % 2 == 0) {
 				$class = ' class="altrow"';
 			}
 		?>
 		<tr<?php echo $class;?>>
-			<td><?php echo $childSample['id'];?></td>
+			<td><?php echo $html->link($childSample['id'], array('controller' => 'samples', 'action' => 'view', $childSample['id']));?></td>
 			<td><?php echo $childSample['name'];?></td>
-			<td><?php echo $childSample['timepoint_id'];?></td>
-			<td><?php echo $childSample['derives_from'];?></td>
+			<td><?php echo $html->link($childSample['timepoint_id'], array('controller' => 'timepoints', 'action' => 'view', $childSample['timepoint_id']));?></td>
+			<td><?php echo $html->link($childSample['derives_from'], array('controller' => 'samples', 'action' => 'view', $childSample['derives_from']));?></td>
 			<td><?php echo $childSample['amount'];?></td>
-			<td><?php echo $childSample['person_id'];?></td>
+			<td><?php echo $html->link($childSample['Person']['lastname'], array('controller' => 'people', 'action' => 'view', $childSample['person_id']));?></td>
 			<td><?php echo $childSample['created'];?></td>
 			<td class="actions">
 				<?php echo $html->link(__('View', true), array('controller' => 'samples', 'action' => 'view', $childSample['id'])); ?>

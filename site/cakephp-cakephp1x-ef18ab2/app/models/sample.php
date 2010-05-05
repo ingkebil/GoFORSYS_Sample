@@ -68,5 +68,12 @@ class Sample extends AppModel {
 
     var $actsAs = array('containable');
 
+    function __construct($id = false, $table = null, $ds = null) {
+        parent::__construct($id, $table, $ds);
+        $this->virtualFields = array(
+            'derives_from_name' => sprintf('IF(%s.id = %s.derives_from, "Fermenter", %s.derives_from)', $this->alias, $this->alias, $this->alias)
+        );
+    }
+
 }
 ?>
