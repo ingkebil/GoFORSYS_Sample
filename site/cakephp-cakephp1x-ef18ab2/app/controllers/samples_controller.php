@@ -15,7 +15,7 @@ class SamplesController extends AppController {
 			$this->Session->setFlash(__('Invalid Sample', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('sample', $this->Sample->read(null, $id));
+		$this->set('sample', $this->Sample->find('first', array('conditions' => array('Sample.id' => $id), 'contain' => array('Person', 'Timepoint', 'ChildSample.Person'))));
 	}
 
 	function add() {

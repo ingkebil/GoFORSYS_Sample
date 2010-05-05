@@ -1,4 +1,4 @@
-<?php echo $javascript->codeBlock("
+<?php echo $html->scriptBlock("
 function setCookie(c_name,value,expiredays) {
     var exdate=new Date();
     exdate.setDate(exdate.getDate()+expiredays);
@@ -17,10 +17,10 @@ if (document.cookie.length>0) {
 return '';
 }
 "); ?>
-<?php $javascript->link('jquery-1.4.2.min', false); ?>
-<?php $javascript->link('simpleAutoComplete', false); ?>
-<?php $html->css('simpleAutoComplete', null, false, false); ?>
-<?php $html->css('samples', null, false, false); ?>
+<?php $html->script('jquery-1.4.2.min', false); ?>
+<?php $html->script('simpleAutoComplete', false); ?>
+<?php $html->css('simpleAutoComplete', null, array('inline' => false)); ?>
+<?php $html->css('samples', null, array('inline' => false)); ?>
 <div class="samples form">
 <?php if (! count($experiments['Fermenter'])): ?>
 No timepoints found! Maybe someone should <?php echo $html->link('add some', '/timepoints/create'); ?>?
@@ -71,7 +71,7 @@ echo $form->create('Sample', array('action' => "generate"));?>
 </div>
 <?php endif; ?>
 
-<?php echo $javascript->codeBlock('
+<?php echo $html->scriptBlock('
     // select timepoints
     $(document).ready(function() {
         $("table tr th:not(:first)").click(function(event) {

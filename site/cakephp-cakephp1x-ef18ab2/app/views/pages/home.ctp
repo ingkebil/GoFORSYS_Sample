@@ -10,8 +10,8 @@ You can ...
 <li><?php echo $html->link('... Browse the help', 'http://gent/dokuwiki/goforsys/'); ?></li>
 </ul>
 
-<?php $javascript->link('timeline_2.3.0/src/webapp/api/timeline-api.js', false); ?>
-<?php echo $javascript->codeBlock('
+<?php $html->script('timeline_2.3.0/src/webapp/api/timeline-api.js', false); ?>
+<?php echo $html->scriptBlock('
 var tl;
 window.onload = function () {
   var bandInfos = [
