@@ -11,6 +11,6 @@
 
 You can ...
 <ul>
-<li><?php echo $html->link('... view all your sample IDs', array('controller' => 'people', 'action' => 'view', $personId)); ?></li>
+<li><?php echo $html->link('... view all your sample IDs', array('controller' => 'people', 'action' => 'view', $person_id)); ?></li>
 <li><?php echo $html->link('... generate some more sample IDs', array('action' => 'generate')); ?></li>
 </ul>

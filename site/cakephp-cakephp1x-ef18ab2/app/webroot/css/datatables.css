@@ -54,10 +54,66 @@ tr.odd {
 tr.even {
 	background-color: white;
 }
+table.display tfoot tr th {
+    background-color: #FFF;
+    border: none;
+    border-right: 1px solid #CBCBCB;
+/*    border-top: 1px solid #A9A9A9;*/
+}
+table.display thead tr th {
+    border-bottom: 1px solid #A9A9A9;
+}
+table.display {
+    border: none;
+}
+table.display tr td.actions, table.display tr th.actions {
+    border-right: none;
+}
+.dataTables_wrapper {
+	position: relative;
+	clear: both;
+}
+
+.dataTables_processing {
+	position: absolute;
+	top: 0px;
+	left: 50%;
+	width: 250px;
+	margin-left: -125px;
+	border: 1px solid #ddd;
+	text-align: center;
+	color: #999;
+	font-size: 11px;
+	padding: 2px 0;
+}
+
+.dataTables_length {
+	width: 40%;
+	float: left;
+    font-size: 100%;
+}
+
+.dataTables_filter {
+	width: 50%;
+	float: right;
+	text-align: right;
+}
+
+.dataTables_info {
+	width: 50%;
+	float: left;
+}
+
+.dataTables_paginate {
+	float: right;
+	text-align: right;
+}
+
 .paging_full_numbers {
 	width: 400px;
 	height: 22px;
 	line-height: 22px;
+    float: right;
 }
 
 .paging_full_numbers span.paginate_button,

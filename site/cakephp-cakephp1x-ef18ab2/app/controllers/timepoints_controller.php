@@ -2,7 +2,7 @@
 class TimepointsController extends AppController {
 
 	var $name = 'Timepoints';
-	var $helpers = array('Html', 'Form');
+	var $helpers = array('Html', 'Form', 'dataTable');
 
 	function index() {
 		$this->Timepoint->recursive = 0;
@@ -42,9 +42,9 @@ class TimepointsController extends AppController {
 		}
 		$fermenters = $this->Timepoint->Fermenter->find('list');
         $experiments = $this->Timepoint->Fermenter->Experiment->find('list', array('fields' => array('Experiment.id', 'Experiment.description')));
-        $cur_experiment = $this->Timepoint->Fermenter->Experiment->findCurExperiment();
+        $cur_experiment = $this->Timepoint->Fermenter->Experiment->findCurExperimentId();
         if (empty($this->data['Timepoint']['experiment_id']) && ! empty($cur_experiment)) {
-            $this->data['Timepoint']['experiment_id'] = $cur_experiment['Experiment']['id'];
+            $this->data['Timepoint']['experiment_id'] = $cur_experiment;
         }
 		$this->set(compact('fermenters', 'experiments'));
 	}

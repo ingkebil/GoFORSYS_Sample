@@ -6,6 +6,7 @@ class Fermenter extends AppModel {
 		'name' => array('rule' => 'numeric', 'required' => true, 'message' => 'Should be numeric!'),
 		'experiment_id' => array('numeric')
 	);
+    var $actsAs = array('containable');
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
@@ -33,6 +34,10 @@ class Fermenter extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+
+    function findStart($id) {
+        $tps = $this->find('first', array('conditions' => array('Event.event' => 'start'), 'contain' => array('Timepoint.Event')));
+    }
 
 }
 ?>

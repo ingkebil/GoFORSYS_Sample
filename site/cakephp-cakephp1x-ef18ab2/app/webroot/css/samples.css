@@ -43,6 +43,3 @@ table tr.altrow td {
 table tr td span.selected {
     background: #0FF;
 }
-table tr td span span {
-    color: #ccc;
-}

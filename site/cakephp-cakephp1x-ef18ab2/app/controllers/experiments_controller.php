@@ -2,7 +2,7 @@
 class ExperimentsController extends AppController {
 
 	var $name = 'Experiments';
-	var $helpers = array('Html', 'Form');
+	var $helpers = array('Html', 'Form', 'DataTable', 'moreTime');
 
 	function index() {
 		$this->Experiment->recursive = 0;
@@ -14,7 +14,8 @@ class ExperimentsController extends AppController {
 			$this->Session->setFlash(__('Invalid Experiment', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('experiment', $this->Experiment->find('first', array('conditions' => array('id' => $id), 'contain' => array('Fermenter.Timepoint', 'Timepoint'))));
+		$this->set('experiment', $this->Experiment->find('first', array('conditions' => array('Experiment.id' => $id), 'contain' => array('Fermenter.Timepoint.Sample.Person', 'Fermenter.Timepoint.Event'))));
+        $this->set('start', $this->Experiment->Fermenter->Timepoint->Event->findStarts($id));
 	}
 
 	function add() {

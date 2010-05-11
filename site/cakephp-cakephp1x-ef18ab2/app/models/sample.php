@@ -68,6 +68,10 @@ class Sample extends AppModel {
 
     var $actsAs = array('containable');
 
+    /**
+     * It would be nice to have an extra field saying 'Fermenter' when the sample derives from itself. This way there is no
+     * confusion in the 'derives_from' column on a page.
+     */
     function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(

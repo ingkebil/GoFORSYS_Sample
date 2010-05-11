@@ -51,7 +51,7 @@ $html->script('dataTables-1.6/media/js/jquery.dataTables', false);
 		<tr<?php echo $class;?>>
 			<td><?php echo $html->link($sample['id'], array('controller' => 'samples', 'action' => 'view', $sample['id']));?></td>
 			<td><?php echo $html->link($sample['timepoint_id'], array('controller' => 'timepoints', 'action' => 'view', $sample['timepoint_id']));?></td>
-			<td><?php echo $html->link($sample['derives_from'], array('controller' => 'samples', 'action' => 'view', $sample['derives_from']));?></td>
+			<td><?php echo $html->link($sample['derives_from_name'], array('controller' => 'samples', 'action' => 'view', $sample['derives_from']));?></td>
 			<td><?php echo $sample['amount'];?></td>
 			<td><?php echo $sample['created'];?></td>
 			<td class="actions">
@@ -71,13 +71,4 @@ $html->script('dataTables-1.6/media/js/jquery.dataTables', false);
 		</ul>
 	</div>
 </div>
-
-<?php echo $html->scriptBlock("
-$(document).ready(function () {
-    $('div.related table').dataTable( {
-        'bStateSave': true,
-        'sPaginationType': 'full_numbers'
-
-    } );
-});
-"); ?>
+<?php echo $dataTable->create('div.related table'); ?>

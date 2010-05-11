@@ -31,11 +31,10 @@ body {
 	background: #003d4c;
 	color: #fff;
 	font-family:'lucida grande',verdana,helvetica,arial,sans-serif;
-	font-size:90%;
+	font-size:80%;
 	margin: 0;
 }
 a {
-	background:#fff;
 	color: #003d4c;
 	text-decoration: underline;
 	font-weight: bold;
@@ -510,4 +509,7 @@ div.code-coverage-results span.result-good {
     z-index: 3;
     padding: 3px;
     display: none;
+}
+.tminus {
+    color: #ccc;
 }
