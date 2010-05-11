@@ -2,7 +2,7 @@
 class SamplesController extends AppController {
 
 	var $name = 'Samples';
-	var $helpers = array('Html', 'Form', 'Javascript', 'Ajax');
+	var $helpers = array('Html', 'Form', 'Javascript', 'Ajax', 'dataTable');
     var $uses = array('Sample', 'Person', 'Timepoint', 'Experiment');
 
 	function index() {
@@ -44,7 +44,7 @@ class SamplesController extends AppController {
             if (count($person['Person'])) {
                 $sample =& $this->data['Sample'];
                 $tps = explode(',', $sample['timepoint_id']);
-                $tps = array_filter($tps, create_function('$a', 'return !empty($a);'));
+                $tps = array_filter($tps, create_function('$a', 'return !empty($a);')); # pff, at least in perl you can do grep / ! $_ / @list; 
                 $samples = array();
                 foreach ($tps as $tp) {
                     if ($tp) {
@@ -63,11 +63,11 @@ class SamplesController extends AppController {
                     $this->Session->setFlash(__('The samples have been saved', true));
                     $this->redirect(array('action' => 'thx'));
                 } else {
-                    $validationErrors = array();
-                    foreach ($this->Sample->validationErrors as $errors) {
-                        $validationErrors = array_merge($errors, $validationErrors);
-                    }
-                    $this->Sample->validationErrors = $validationErrors;
+                    #$validationErrors = array();
+                    #foreach ($this->Sample->validationErrors as $errors) {
+                    #    $validationErrors = array_merge($errors, $validationErrors);
+                    #}
+                    #$this->Sample->validationErrors = $validationErrors;
                     $this->Session->setFlash(__('The Sample could not be saved. Please, try again.', true));
                 }
             }

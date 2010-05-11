@@ -2,7 +2,7 @@
 class PeopleController extends AppController {
 
 	var $name = 'People';
-	var $helpers = array('Html', 'Form');
+	var $helpers = array('Html', 'Form', 'dataTable');
 
 	function index() {
 		$this->Person->recursive = 0;

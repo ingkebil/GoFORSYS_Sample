@@ -2,7 +2,7 @@
 class FermentersController extends AppController {
 
 	var $name = 'Fermenters';
-	var $helpers = array('Html', 'Form');
+	var $helpers = array('Html', 'Form', 'dataTable');
 
 	function index() {
 		$this->Fermenter->recursive = 0;
@@ -14,7 +14,7 @@ class FermentersController extends AppController {
 			$this->Session->setFlash(__('Invalid Fermenter', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('fermenter', $this->Fermenter->read(null, $id));
+		$this->set('fermenter', $this->Fermenter->find('first', array('conditions' => array('Fermenter.id' => $id), 'contain' => array('Timepoint.Sample.Person', 'Experiment'))));
 	}
 
 	function add() {
@@ -28,9 +28,9 @@ class FermentersController extends AppController {
 			}
 		}
 		$experiments = $this->Fermenter->Experiment->find('list', array('fields' => array('Experiment.id', 'Experiment.description')));
-        $cur_experiment = $this->Fermenter->Experiment->findCurExperiment();
+        $cur_experiment = $this->Fermenter->Experiment->findCurExperimentId();
         if (empty($this->data['Fermenter']['experiment_id']) && ! empty($cur_experiment)) {
-            $this->data['Fermenter']['experiment_id'] = $cur_experiment['Experiment']['id'];
+            $this->data['Fermenter']['experiment_id'] = $cur_experiment;
         }
 		$this->set(compact('experiments'));
 	}

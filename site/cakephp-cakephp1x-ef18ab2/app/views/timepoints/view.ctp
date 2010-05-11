@@ -41,12 +41,15 @@
 	<h3><?php __('Related Events');?></h3>
 	<?php if (!empty($timepoint['Event'])):?>
 	<table cellpadding = "0" cellspacing = "0">
+    <thead>
 	<tr>
 		<th><?php __('Timepoint Id'); ?></th>
 		<th><?php __('Experiment Id'); ?></th>
 		<th><?php __('Description'); ?></th>
 		<th class="actions"><?php __('Actions');?></th>
 	</tr>
+    </thead>
+    <tbody>
 	<?php
 		$i = 0;
 		foreach ($timepoint['Event'] as $event):
@@ -66,6 +69,7 @@
 			</td>
 		</tr>
 	<?php endforeach; ?>
+        </tbody>
 	</table>
 <?php endif; ?>
 
@@ -79,6 +83,7 @@
 	<h3><?php __('Related Samples');?></h3>
 	<?php if (!empty($timepoint['Sample'])):?>
 	<table cellpadding = "0" cellspacing = "0">
+    <thead>
 	<tr>
 		<th><?php __('Id'); ?></th>
 		<th><?php __('Derives From'); ?></th>
@@ -87,6 +92,8 @@
 		<th><?php __('Created'); ?></th>
 		<th class="actions"><?php __('Actions');?></th>
 	</tr>
+    </thead>
+    <tbody>
 	<?php
 		$i = 0;
 		foreach ($timepoint['Sample'] as $sample):
@@ -97,12 +104,7 @@
 		?>
 		<tr<?php echo $class;?>>
 			<td><?php echo $html->link($sample['id'], array('controller' => 'samples', 'action' => 'view', $sample['id']));?></td>
-            <td><?php if ($sample['derives_from'] != $sample['id']):
-                echo $html->link($sample['derives_from'], array('controller' => 'samples', 'action' => 'view', $sample['derives_from']));
-            else: ?>
-                Fermenter
-            <?php endif; ?>
-            </td>
+            <td><?php echo $html->link($sample['derives_from_name'], array('controller' => 'samples', 'action' => 'view', $sample['derives_from']));?></td>
 			<td><?php echo $sample['amount'];?></td>
 			<td><?php echo $html->link($sample['Person']['lastname'], array('controller' => 'people', 'action' => 'view', $sample['Person']['id']));?></td>
 			<td><?php echo $sample['created'];?></td>
@@ -113,6 +115,7 @@
 			</td>
 		</tr>
 	<?php endforeach; ?>
+        </tbody>
 	</table>
 <?php endif; ?>
 
@@ -122,3 +125,4 @@
 		</ul>
 	</div>
 </div>
+<?php echo $dataTable->create('div.related table'); ?>

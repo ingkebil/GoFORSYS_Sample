@@ -36,7 +36,7 @@ foreach ($samples as $sample):
 			<?php echo $html->link($sample['Timepoint']['name'], array('controller' => 'timepoints', 'action' => 'view', $sample['Timepoint']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $sample['Sample']['derives_from']; ?>
+			<?php echo $sample['Sample']['derives_from_name']; ?>
 		</td>
 		<td>
 			<?php echo $sample['Sample']['amount']; ?>

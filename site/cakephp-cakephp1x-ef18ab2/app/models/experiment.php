@@ -10,19 +10,6 @@ class Experiment extends AppModel {
 
     //The Associations below have been created with all possible keys, those that are not needed can be removed
     var $hasMany = array(
-        'Event' => array(
-            'className' => 'Event',
-            'foreignKey' => 'experiment_id',
-            'dependent' => false,
-            'conditions' => '',
-            'fields' => '',
-            'order' => '',
-            'limit' => '',
-            'offset' => '',
-            'exclusive' => '',
-            'finderQuery' => '',
-            'counterQuery' => ''
-        ),
         'Fermenter' => array(
             'className' => 'Fermenter',
             'foreignKey' => 'experiment_id',
@@ -56,8 +43,18 @@ class Experiment extends AppModel {
         )
     );
 
-    function findCurExperiment() {
-        return $this->Event->find('first', array('conditions' => array('Timepoint.when <' => date('Y/m/d H:i:s')), 'order' => array('when' => 'ASC')));
+    function findCurExperimentId() {
+        $exp = $this->query(
+            "SELECT Experiment.id FROM experiments AS Experiment
+            JOIN fermenters AS Fermenter ON Experiment.id = Fermenter.experiment_id
+            JOIN timepoints AS Timepoint ON Fermenter.id = Timepoint.fermenter_id
+            WHERE Timepoint.when < '" . date('Y/m/d H:i:s') . "'
+            LIMIT 1");
+
+        if (!$exp) {
+            return false;
+        }
+        return $exp[0]['Experiment']['id'];
     }
 
     /**
@@ -66,28 +63,24 @@ class Experiment extends AppModel {
      *
      * @param int $exp_id optional parameter denoting the experiment of which you need the timepoints per fermenter. If not 
      * given, the current experiment (as found with 
-     * $this->findCurExperiment()) is used.
+     * $this->findCurExperimentId()) is used.
      * @return array the modified find('all') experiments array with above 
      * mentioned structure added
      */
     function findTPFermenter($exp_id) {
         if ($exp_id == null) {
-            $cur_experiment = $this->findCurExperiment();
-            $exp_id = $cur_experiment['Experiment']['id'];
+            $exp_id = $this->findCurExperimentId();
         }
         $experiments = 
             $this->find('first', array(
                 'conditions' => array('id' => $exp_id),
-                'contain' => array('Fermenter.Timepoint', 'Timepoint')
+                'contain' => array('Fermenter.Timepoint')
             ));
 
         # get the startingpoint of an experiment
-        $events = array();
-        if (array_key_exists('Timepoint', $experiments)) {
-            foreach ($experiments['Timepoint'] as $timepoint) {
-                $events[ $timepoint['fermenter_id'] ] = $timepoint['when'];
-            }
-        }
+        App::import('model', 'Event');
+        $this->Event = new Event();
+        $events = $this->Event->findStarts($exp_id);
 
         $tps = array();
         $experiments['Timepoints'] = array();
