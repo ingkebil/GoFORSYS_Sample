@@ -6,12 +6,12 @@
 			<?php echo $fermenter['Fermenter']['description']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Name'); ?></dt>
+        <dt<?php if ($i % 2 == 0) echo $class;?>><?php echo $tooltip->lookup('fermenter_name', __('Name', true)); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $fermenter['Fermenter']['name']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Experiment'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo $tooltip->lookup('experiment_name', __('Experiment', true)); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $html->link($fermenter['Experiment']['name'], array('controller' => 'experiments', 'action' => 'view', $fermenter['Experiment']['id'])); ?>
 			&nbsp;

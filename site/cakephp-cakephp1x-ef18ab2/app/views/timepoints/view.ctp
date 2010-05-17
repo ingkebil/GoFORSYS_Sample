@@ -11,12 +11,12 @@
 			<?php echo $timepoint['Timepoint']['when']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Experiment'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo $tooltip->lookup('experiment_name', __('Experiment', true)); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $html->link($timepoint['Fermenter']['Experiment']['name'], array('controller' => 'experiments', 'action' => 'view', $timepoint['Fermenter']['Experiment']['id'])); ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Fermenter'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php echo $tooltip->lookup('fermenter_name', __('Fermenter', true)); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $html->link($timepoint['Fermenter']['name'], array('controller' => 'fermenters', 'action' => 'view', $timepoint['Fermenter']['id'])); ?>
 			&nbsp;
