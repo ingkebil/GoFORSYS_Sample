@@ -63,11 +63,11 @@ class SamplesController extends AppController {
                     $this->Session->setFlash(__('The samples have been saved', true));
                     $this->redirect(array('action' => 'thx'));
                 } else {
-                    #$validationErrors = array();
-                    #foreach ($this->Sample->validationErrors as $errors) {
-                    #    $validationErrors = array_merge($errors, $validationErrors);
-                    #}
-                    #$this->Sample->validationErrors = $validationErrors;
+                    $validationErrors = array();
+                    foreach ($this->Sample->validationErrors as $errors) {
+                        $validationErrors = array_merge($errors, $validationErrors);
+                    }
+                    $this->Sample->validationErrors = $validationErrors;
                     $this->Session->setFlash(__('The Sample could not be saved. Please, try again.', true));
                 }
             }
