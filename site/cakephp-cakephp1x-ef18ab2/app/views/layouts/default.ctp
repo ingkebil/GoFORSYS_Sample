@@ -17,7 +17,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1>DbFORSYS: unconfusing data</h1>
+        <h1><?php echo $html->link('DbFORSYS: unconfusing data', '/'); ?></h1>
 		</div>
 		<div id="content">
 
