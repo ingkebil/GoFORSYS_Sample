@@ -1,22 +1,44 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* Event Fixture generated on: 2010-04-21 14:19:33 : 1271852373*/
-
+<?php
+/* Event Fixture generated on: 2010-05-26 12:05:25 : 1274871265 */
 class EventFixture extends CakeTestFixture {
 	var $name = 'Event';
-	var $table = 'events';
+
 	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
-		'timepoint_id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'index'),
-		'experiment_id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'index'),
-		'description' => array('type'=>'text', 'null' => true, 'default' => NULL),
-		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'fk_experiment_timepoint_experiments1' => array('column' => 'experiment_id', 'unique' => 0), 'fk_experiment_timepoint_timepoints1' => array('column' => 'timepoint_id', 'unique' => 0))
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
+		'timepoint_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'index'),
+		'description' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'event' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'fk_events_timepoints1' => array('column' => 'timepoint_id', 'unique' => 0)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
-	var $records = array(array(
-		'id' => 1,
-		'timepoint_id' => 1,
-		'experiment_id' => 1,
-		'description' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida,phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam,vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit,feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.'
-	));
+
+	var $records = array(
+		array(
+			'id' => 1,
+			'timepoint_id' => 4,
+			'event' => 'start',
+			'description' => ''
+		),
+		array(
+			'id' => 2,
+			'timepoint_id' => 32,
+			'event' => 'start',
+			'description' => ''
+		),
+	);
+
+    /*
+     * PFFFF! test suite does not support enum? :/
+     * So create your own table for each table that has
+     * an enum and prevetn the test suite to create or drop it
+     */
+   # function create(&$db) {
+   #     return true;
+   # }
+
+   # function drop(&$db) {
+   #     return true;
+   # }
+
 }
 ?>

@@ -1,30 +1,30 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* Experiment Test cases generated on: 2010-03-23 12:47:33 : 1269344853*/
+<?php
+/* Experiment Test cases generated on: 2010-05-25 14:05:43 : 1274791363*/
 App::import('Model', 'Experiment');
 
 class ExperimentTestCase extends CakeTestCase {
-	var $Experiment = null;
-	var $fixtures = array('app.experiment', 'app.sample');
+	var $fixtures = array('app.experiment', 'app.fermenter', 'app.timepoint', 'app.event', 'app.sample', 'app.person');
 
 	function startTest() {
 		$this->Experiment =& ClassRegistry::init('Experiment');
 	}
 
-	function testExperimentInstance() {
-		$this->assertTrue(is_a($this->Experiment, 'Experiment'));
+	function endTest() {
+		unset($this->Experiment);
+		ClassRegistry::flush();
 	}
 
-	function testExperimentFind() {
-		$this->Experiment->recursive = -1;
-		$results = $this->Experiment->find('first');
-		$this->assertTrue(!empty($results));
+	function testFindCurExperimentId() {
 
-		$expected = array('Experiment' => array(
-			'id' => 1,
-			'description' => 'Lorem ipsum dolor sit amet'
-		));
-		$this->assertEqual($results, $expected);
 	}
+
+	function testFindTPFermenter() {
+
+	}
+
+	function testDateDiff() {
+
+	}
+
 }
 ?>

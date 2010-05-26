@@ -1,30 +1,22 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* Fermenter Test cases generated on: 2010-03-23 12:48:01 : 1269344881*/
+<?php
+/* Fermenter Test cases generated on: 2010-05-25 14:05:05 : 1274791385*/
 App::import('Model', 'Fermenter');
 
 class FermenterTestCase extends CakeTestCase {
-	var $Fermenter = null;
-	var $fixtures = array('app.fermenter', 'app.sample');
+	var $fixtures = array('app.fermenter', 'app.experiment', 'app.timepoint', 'app.event', 'app.sample', 'app.person');
 
 	function startTest() {
 		$this->Fermenter =& ClassRegistry::init('Fermenter');
 	}
 
-	function testFermenterInstance() {
-		$this->assertTrue(is_a($this->Fermenter, 'Fermenter'));
+	function endTest() {
+		unset($this->Fermenter);
+		ClassRegistry::flush();
 	}
 
-	function testFermenterFind() {
-		$this->Fermenter->recursive = -1;
-		$results = $this->Fermenter->find('first');
-		$this->assertTrue(!empty($results));
+	function testFindStart() {
 
-		$expected = array('Fermenter' => array(
-			'id' => 1,
-			'description' => 'Lorem ipsum dolor sit amet'
-		));
-		$this->assertEqual($results, $expected);
 	}
+
 }
 ?>

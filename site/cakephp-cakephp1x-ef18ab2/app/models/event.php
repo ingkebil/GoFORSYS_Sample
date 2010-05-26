@@ -8,7 +8,6 @@ class Event extends AppModel {
 	);
     var $actsAs = array('Containable');
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
 		'Timepoint' => array(
 			'className' => 'Timepoint',
@@ -25,22 +24,33 @@ class Event extends AppModel {
      * @param int experiment_id
      * @return array [fermenter_id] => [Timepoint.when]
      */
-    function findStarts($experiment_id) {
-        App::import('model', 'Experiment');
-        $this->Experiment = new Experiment();
+    function findStarts($experiment_id, $event = 'start') {
         if (!$experiment_id) {
+            App::import('model', 'Experiment');
+            $this->Experiment = new Experiment();
             $experiment_id = $this->Experiment->findCurExperimentId();
         }
-        App::import('Sanitize');
-        $experiment_id = Sanitize::escape($experiment_id, 'default');
-        $tps = $this->Experiment->query(
-            "SELECT Fermenter.id, Timepoint.when FROM experiments Experiment
-            JOIN fermenters AS Fermenter ON Experiment.id = Fermenter.experiment_id
-            JOIN timepoints AS Timepoint ON Fermenter.id  = Timepoint.fermenter_id
-            JOIN events     AS Event     ON Timepoint.id  = Event.timepoint_id
-            WHERE Experiment.id = $experiment_id"
-        );
-
+        
+        $tps = $this->find('all', array(
+            'conditions' => array(
+                'Fermenter.experiment_id' => $experiment_id,
+                'Event.event' => $event
+            ),
+            'fields' => array('Fermenter.id', 'Timepoint.when'),
+            'contain' => false,
+            'joins' => array(
+                array(
+                    'table' => 'timepoints',
+                    'alias' => 'Timepoint',
+                    'conditions' => array('Event.timepoint_id = Timepoint.id')
+                ),
+                array(
+                    'table' => 'fermenters',
+                    'alias' => 'Fermenter',
+                    'conditions' => array('Timepoint.fermenter_id = Fermenter.id')
+                )
+            )
+        ));
 
         $starts = array();
         foreach ($tps as $tp) {
