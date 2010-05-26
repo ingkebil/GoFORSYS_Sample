@@ -1,30 +1,18 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* Person Test cases generated on: 2010-03-23 12:48:19 : 1269344899*/
+<?php
+/* Person Test cases generated on: 2010-05-25 14:05:36 : 1274791476*/
 App::import('Model', 'Person');
 
 class PersonTestCase extends CakeTestCase {
-	var $Person = null;
-	var $fixtures = array('app.person', 'app.sample');
+	var $fixtures = array('app.person', 'app.sample', 'app.timepoint', 'app.fermenter', 'app.experiment', 'app.event');
 
 	function startTest() {
 		$this->Person =& ClassRegistry::init('Person');
 	}
 
-	function testPersonInstance() {
-		$this->assertTrue(is_a($this->Person, 'Person'));
+	function endTest() {
+		unset($this->Person);
+		ClassRegistry::flush();
 	}
 
-	function testPersonFind() {
-		$this->Person->recursive = -1;
-		$results = $this->Person->find('first');
-		$this->assertTrue(!empty($results));
-
-		$expected = array('Person' => array(
-			'id' => 1,
-			'lastname' => 'Lorem ipsum dolor sit amet'
-		));
-		$this->assertEqual($results, $expected);
-	}
 }
 ?>

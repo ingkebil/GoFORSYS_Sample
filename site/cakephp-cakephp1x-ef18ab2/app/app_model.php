@@ -37,5 +37,8 @@
  * @subpackage    cake.app
  */
 class AppModel extends Model {
+
+    var $cacheQueries = true;
+
 }
 ?>

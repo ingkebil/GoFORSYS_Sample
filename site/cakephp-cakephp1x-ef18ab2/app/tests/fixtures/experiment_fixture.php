@@ -1,18 +1,27 @@
-<?php 
-/* SVN FILE: $Id$ */
-/* Experiment Fixture generated on: 2010-03-23 12:47:33 : 1269344853*/
-
+<?php
+/* Experiment Fixture generated on: 2010-05-25 12:05:17 : 1274784437 */
 class ExperimentFixture extends CakeTestFixture {
 	var $name = 'Experiment';
-	var $table = 'experiments';
+
 	var $fields = array(
-		'id' => array('type'=>'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-		'description' => array('type'=>'string', 'null' => false, 'default' => NULL, 'length' => 45),
-		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 10, 'key' => 'primary'),
+		'description' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 45),
+		'name' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 5),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
-	var $records = array(array(
-		'id' => 1,
-		'description' => 'Lorem ipsum dolor sit amet'
-	));
+
+	var $records = array(
+		array(
+			'id' => 1,
+			'description' => 'First Core Experiment',
+			'name' => 1
+		),
+		array(
+			'id' => 2,
+			'description' => 'Second Core Experiment',
+			'name' => 2
+		),
+	);
 }
 ?>
