@@ -15,8 +15,34 @@ class FermenterTestCase extends CakeTestCase {
 	}
 
 	function testFindStart() {
+        $result = $this->Fermenter->findStart(1);
+        $expected = '2010-04-20 09:00:00';
 
+        $this->assertEqual($result, $expected);
 	}
+
+    function testFindStarts() {
+		$this->Person =& ClassRegistry::init('Person');
+        $tps = $this->Person->find('first', array('conditions' => array('Person.id' => 1), 'contain' => array('Sample.Timepoint')));
+
+        $result = $this->Fermenter->findStarts($tps);
+        $expected = array(
+            1 => '2010-04-20 09:00:00',
+            2 => '2010-04-20 11:00:00'
+        );
+
+        $this->assertEqual($result, $expected);
+    }
+
+    function test__find_fermenter_id() {
+		$this->Person =& ClassRegistry::init('Person');
+        $tps = $this->Person->find('first', array('conditions' => array('Person.id' => 1), 'contain' => array('Sample.Timepoint')));
+
+        $result = $this->Fermenter->__find_fermenter_ids($tps);
+        $expected = array(1 => 1, 2 => 1);
+
+        $this->assertEqual($result, $expected);
+    }
 
 }
 ?>

@@ -114,8 +114,8 @@
 	<table cellpadding = "0" cellspacing = "0">
     <thead>
 	<tr>
-		<th><?php __('Name'); ?></th>
 		<th><?php __('When'); ?></th>
+		<th><?php __('Name'); ?></th>
 		<th><?php __('Fermenter'); ?></th>
 		<th class="actions"><?php __('Actions');?></th>
 	</tr>
@@ -130,8 +130,8 @@
                 }
             ?>
             <tr<?php echo $class;?>>
-			    <td><?php echo $timepoint['name'];?></td>
                 <td><?php echo $timepoint['when'];?> <span class="tminus">(<?php echo $moreTime->simpleDiff($timepoint['when'], $start[ $fermenter['id'] ]); ?>)</span></td>
+			    <td><?php echo $timepoint['name'];?></td>
 			    <td><?php echo $fermenter['name'];?></td>
 			    <td class="actions">
 			    	<?php echo $html->link(__('View', true), array('controller' => 'timepoints', 'action' => 'view', $timepoint['id'])); ?>
