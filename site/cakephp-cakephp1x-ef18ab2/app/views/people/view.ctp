@@ -1,10 +1,3 @@
-<?php
- $html->css('../js/dataTables-1.6/media/css/demo_page');
- $html->css('../js/dataTables-1.6/media/css/demo_table');
-echo $html->css('datatables.css', null, array('inline' => false));
-$html->script('jquery-1.4.2.min', false);
-$html->script('dataTables-1.6/media/js/jquery.dataTables', false);
-?>
 <div class="people view">
 <h2><?php  __('Person');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
@@ -50,7 +43,7 @@ $html->script('dataTables-1.6/media/js/jquery.dataTables', false);
 		?>
 		<tr<?php echo $class;?>>
 			<td><?php echo $html->link($sample['id'], array('controller' => 'samples', 'action' => 'view', $sample['id']));?></td>
-			<td><?php echo $html->link($sample['timepoint_id'], array('controller' => 'timepoints', 'action' => 'view', $sample['timepoint_id']));?></td>
+			<td><?php echo $html->link($sample['Timepoint']['when'], array('controller' => 'timepoints', 'action' => 'view', $sample['timepoint_id']));?> <span class="tminus">(<?php echo $moreTime->simpleDiff($sample['Timepoint']['when'], $starts[ $sample['Timepoint']['fermenter_id'] ]); ?>)</span></td>
 			<td><?php echo $html->link($sample['derives_from_name'], array('controller' => 'samples', 'action' => 'view', $sample['derives_from']));?></td>
 			<td><?php echo $sample['amount'];?></td>
 			<td><?php echo $sample['created'];?></td>

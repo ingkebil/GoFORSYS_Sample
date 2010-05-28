@@ -2,7 +2,7 @@
 class PeopleController extends AppController {
 
 	var $name = 'People';
-	var $helpers = array('Html', 'Form', 'dataTable');
+	var $helpers = array('Html', 'Form', 'dataTable', 'moreTime');
 
 	function index() {
 		$this->Person->recursive = 0;
@@ -14,7 +14,13 @@ class PeopleController extends AppController {
 			$this->Session->setFlash(__('Invalid Person', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('person', $this->Person->read(null, $id));
+        App::import('model', 'Event');
+        $this->Event = new Event();
+
+        $this->set('person', $this->Person->find('first', array('conditions' => array('Person.id' => $id), 'contain' => array('Sample.Timepoint'))));
+        App::import('model', 'Fermenter');
+        $this->Fermenter = new Fermenter();
+        $this->set('starts', $this->Fermenter->findStarts($this->Person->find('first', array('conditions' => array('Person.id' => $id), 'contain' => array('Sample.Timepoint')))));
 	}
 
 	function add() {

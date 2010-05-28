@@ -21,7 +21,7 @@ class EventFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 2,
-			'timepoint_id' => 32,
+			'timepoint_id' => 8,
 			'event' => 'start',
 			'description' => ''
 		),

@@ -24,7 +24,7 @@ class Event extends AppModel {
      * @param int experiment_id
      * @return array [fermenter_id] => [Timepoint.when]
      */
-    function findStarts($experiment_id, $event = 'start') {
+    function findStarts($experiment_id = null, $event = 'start') {
         if (!$experiment_id) {
             App::import('model', 'Experiment');
             $this->Experiment = new Experiment();
@@ -58,6 +58,31 @@ class Event extends AppModel {
         }
 
         return $starts;
+    }
+
+    /**
+     * Given an array, this func will traverse recursively over each member, 
+     * check if keys 'when' and 'fermenter_id' are set, and insert a new 
+     * key=>value on that level with the calculated difference between when 
+     * and Event.when. Event.when is picked according to the associated 
+     * fermenter's 'start' event.
+     *
+     * @param array The timepoints
+     */
+    function calcDiffs(&$tps) {
+        if (is_array($tps)) {
+            if (array_key_exists('fermenter_id', $tps) && array_key_exists('when', $tps)) {
+                $start = $this->Timepoint->Fermenter->findStart($tps['fermenter_id']);
+                $tps['diff'] = strtotime($tps['when']) - strtotime($start);
+            }
+            else {
+                foreach ($tps as &$tp) {
+                    $this->calcDiffs($tp);
+                }
+            }
+        }
+
+        return $tps;
     }
 
 }

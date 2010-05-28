@@ -23,7 +23,7 @@ class TimepointFixture extends CakeTestFixture {
 			'id' => 2,
 			'name' => 2,
 			'when' => '2010-04-19 13:00:00',
-			'fermenter_id' => 2
+			'fermenter_id' => 1
 		),
 		array(
 			'id' => 3,
@@ -47,31 +47,31 @@ class TimepointFixture extends CakeTestFixture {
 			'id' => 6,
 			'name' => 6,
 			'when' => '2010-04-20 09:20:00',
-			'fermenter_id' => 1
+			'fermenter_id' => 2
 		),
 		array(
 			'id' => 7,
 			'name' => 7,
 			'when' => '2010-04-20 10:00:00',
-			'fermenter_id' => 1
+			'fermenter_id' => 2
 		),
 		array(
 			'id' => 8,
 			'name' => 8,
 			'when' => '2010-04-20 11:00:00',
-			'fermenter_id' => 1
+			'fermenter_id' => 2
 		),
 		array(
 			'id' => 9,
 			'name' => 9,
 			'when' => '2010-04-20 13:00:00',
-			'fermenter_id' => 1
+			'fermenter_id' => 2
 		),
 		array(
 			'id' => 10,
 			'name' => 10,
 			'when' => '2010-04-20 21:00:00',
-			'fermenter_id' => 1
+			'fermenter_id' => 2
 		),
 	);
 }
