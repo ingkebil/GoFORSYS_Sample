@@ -2,7 +2,8 @@
 class TimepointsController extends AppController {
 
 	var $name = 'Timepoints';
-	var $helpers = array('Html', 'Form', 'dataTable');
+	var $helpers = array('Html', 'Form', 'dataTable', 'moreTime');
+    var $uses = array('Timepoint', 'Fermenter');
 
 	function index() {
 		$this->Timepoint->recursive = 0;
@@ -14,7 +15,10 @@ class TimepointsController extends AppController {
 			$this->Session->setFlash(__('Invalid Timepoint', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('timepoint', $this->Timepoint->find('first', array('conditions' => array('Timepoint.id' => $id), 'contain' => array('Fermenter.Experiment', 'Event', 'Sample.Person'))));
+
+        $tp = $this->Timepoint->find('first', array('conditions' => array('Timepoint.id' => $id), 'contain' => array('Fermenter.Experiment', 'Event', 'Sample.Person')));
+		$this->set('timepoint', $tp);
+        $this->set('start', $this->Fermenter->findStart($tp['Timepoint']['fermenter_id']));
 	}
 
     function create() {
