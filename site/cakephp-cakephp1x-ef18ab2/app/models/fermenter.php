@@ -89,7 +89,6 @@ class Fermenter extends AppModel {
             }
         }
 
-
         return $ferm_ids;
     }
 

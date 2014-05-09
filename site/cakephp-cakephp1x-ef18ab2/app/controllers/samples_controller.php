@@ -102,6 +102,8 @@ class SamplesController extends AppController {
 		if (empty($this->data)) {
 			$this->data = $this->Sample->read(null, $id);
 		}
+        $this->set('people', $this->Person->find('list', array('fields' => array('Person.id', 'Person.lastname'))));
+        $this->set('timepoints', $this->Timepoint->find('list', array('fields' => array('Timepoint.id', 'Timepoint.name'))));
 	}
 
 	function delete($id = null) {
